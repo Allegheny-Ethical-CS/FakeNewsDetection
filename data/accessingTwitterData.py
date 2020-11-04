@@ -5,10 +5,10 @@ import pandas as pd
 def accessingTwitterDataMethod(): 
     #login credentials for Twitter
     #will be changing this from my personal account later; I will need a developer account
-    consumer_key = `_rh830`
-    consumer_secret = `rachaelh830`
-    access_token = `_rh830`
-    access_token_secret = `rachaelh830`
+    consumer_key = `Rachael19014996`
+    consumer_secret = `mozilla1234`
+    access_token = `Rachael19014996`
+    access_token_secret = `mozilla1234`
 
     #Logging in to Twitter with login credentials
     auth.tw = tw.OAuthHandler(consumer_key, consumer_secret)
