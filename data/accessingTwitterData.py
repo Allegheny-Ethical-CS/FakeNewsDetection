@@ -37,13 +37,24 @@ def accessingTwitterDataMethod():
     auth.set_access_token(access_token, access_token_secret)
     api = tw.API(auth, wait_on_rate_limit = True)
 
+    
+    #try:
+        #self.auth = OAuthHandler(consumer_key, consumer_secret)
+        #set access token and secret
+        #self.auth.set_access_token(access_token, access_token_secret)
+        #create twitter api object to fetch tweets
+        #self.api = tweepy.API(self.auth)
+    #except:
+        #print("Error: Authentication Failed")
+
     #Searching for relevant Tweets
-    search_words = "Presidential Election"
-    date_since = "2020-10-27" #Twitter API only allows you to access the past few weeks of Tweets, so we will start pretty recently
+    search_words = "#Election"
+    date_since = "2020-11-17" #Twitter API only allows you to access the past few weeks of Tweets, so we will start pretty recently
 
     #Collecting Tweets
     tweets = tw.Cursor(api.search, q = search_words, lang = "en", since=date_since).items(50)
     #items(50) is going to return 50 of the most recent Tweets. This will allow us to create a smaller data pool
+    print(tweets)
 
     #<tweepy.Cursor.ItemIterator at 0x7fafc296e400>
     #.Cursor() returns an object that can be iterated or looped through to access the data collected
