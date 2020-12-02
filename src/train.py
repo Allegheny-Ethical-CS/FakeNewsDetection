@@ -99,5 +99,5 @@ class TrainingML(object):
 # accSVM = metrics.accuracy_score(y_test, y_predict2)
 # print("Accuracy NB : ", accNB, "\nAccuracy SVM : ", accSVM)
 
-#Adapted from Zach Leonard's senior comp project.
+#Adapted from Zach Leonardo's senior comp project.
 #Linked here: https://github.com/leonardoz15/Polarized 

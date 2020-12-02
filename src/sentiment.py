@@ -1,16 +1,20 @@
 import nltk
-from textblob import TextBlob
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn import feature_extraction, linear_model, model_selection, preprocessing
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from textblob import TextBlob
 from operator import itemgetter
 
 class PoliticalClassification(object):
-	'''
-	Class to handle sentiment and political classification
-	'''
+	"""Class to handle sentiment and political classification"""
 	def __init__(self):
-		'''
-		Class constructor, initializes dictionary for political classification
-		'''
+		"""Class constructor, initializes dictionary for political classification"""
 
 		rep_tweets = pd.read_csv("../data/ExtractedTweets2.csv", header='infer')
 		rep_tweets.columns = ['Party', 'Handle', 'Tweet']
@@ -24,36 +28,30 @@ class PoliticalClassification(object):
 		# 		print(entry['Party'])
 
 	def get_nouns(self, blob):
-		'''
-		Utility function to classify sentiment of passed tweet
-		using textblob's sentiment method
-		'''
+		"""Utility function to classify sentiment of passed tweet
+		using textblob's sentiment method"""
 
 		return blob.noun_phrases
 
 	def get_tweet_sentiment(self, tweet):
-	'''
-	Utility function to classify sentiment of passed tweet
-	using textblob's sentiment method
-	'''
+		"""Utility function to classify sentiment of passed tweet
+		using textblob's sentiment method"""
 
-	# create TextBlob object of passed tweet text
-	blob = TextBlob(tweet)
-	# attempt spelling correction
-	blob.correct()
-	# float to hold polarity of tweet
-	polarity = blob.polarity
+		# create TextBlob object of passed tweet text
+		blob = TextBlob(tweet)
+		# attempt spelling correction
+		blob.correct()
+		# float to hold polarity of tweet
+		polarity = blob.polarity
 
-	noun_list = self.get_nouns(blob)
+		noun_list = self.get_nouns(blob)
 
-	ratio = self.classify_tweet(polarity, noun_list)
+		ratio = self.classify_tweet(polarity, noun_list)
 
-	return ratio
+		return ratio
 
 	def classify_tweet(self, polarity, nouns):
-		'''
-		Classify user based on each tweet ratio -1 to 1
-		'''
+		"""Classify user based on each tweet ratio -1 to 1"""
 		# -1 = left leaning, 0 = neutral/undefined, 1 = right leaning
 		tweet_ratio = 0
 		for noun in nouns:
@@ -74,10 +72,6 @@ class PoliticalClassification(object):
 						return tweet_ratio
 				else:
 					return tweet_ratio
-	def funcname(parameter_list):
-	"""
-	docstring
-	"""
-	pass
-#Adapted from Zach Leonard's senior comp project.
+	
+#Adapted from Zach Leonardo's senior comp project.
 #Linked here: https://github.com/leonardoz15/Polarized 

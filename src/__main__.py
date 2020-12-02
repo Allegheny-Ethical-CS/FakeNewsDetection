@@ -1,7 +1,7 @@
 import re
 import tweepy
 from tweepy import OAuthHandler
-from twitter import TwitterClient
+from accessingTwitterData import TwitterClient
 from train import TrainingML
 from sentiment import PoliticalClassification
 import matplotlib.pyplot as plt
@@ -77,5 +77,5 @@ if __name__ == '__main__':
     # calls main function
     main()
 
-#Adapted from Zach Leonard's senior comp project.
+#Adapted from Zach Leonardo's senior comp project.
 #Linked here: https://github.com/leonardoz15/Polarized 

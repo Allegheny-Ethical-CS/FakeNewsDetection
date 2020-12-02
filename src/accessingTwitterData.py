@@ -49,15 +49,15 @@ class TwitterClient(object):
                         return real_id
                     else:
                         count = count + 1
-            print("No user with that name")
-                    sys.exit()
+                        print("No user with that name")
+                        sys.exit()
 
         except tweepy.TweepError as e:
             # print error (if any)
             print("Error : " + str(e))
 
 
-    def clean_tweet(tweet):
+    def clean_tweet(self, tweet):
         """Utility function to clean tweet text by removing links, special characters, RT's using simple regex statements"""
         return ' '.join(re.sub("(RT)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
 
@@ -73,7 +73,7 @@ class TwitterClient(object):
             # parsing tweets one by one
             for tweet in fetched_tweets:
                 # empty dictionary to store required params of a tweet
-                 parsed_tweet = {}
+                parsed_tweet = {}
 
                 # saving text of tweet
                 parsed_tweet['text'] = self.clean_tweet(tweet.text)
@@ -95,5 +95,5 @@ class TwitterClient(object):
             # print error (if any)
             print("Error : " + str(e))
 
-#Adapted from Zach Leonard's senior comp project.
+#Adapted from Zach Leonardo's senior comp project.
 #Linked here: https://github.com/leonardoz15/Polarized 
