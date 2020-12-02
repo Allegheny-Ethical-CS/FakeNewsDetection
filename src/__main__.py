@@ -1,16 +1,81 @@
+import re
+import tweepy
+from tweepy import OAuthHandler
+from twitter import TwitterClient
+from train import TrainingML
+from sentiment import PoliticalClassification
+import matplotlib.pyplot as plt
 
-from data import accessingTwitterData
+api = TwitterClient()
+trained_model = TrainingML()
+sentiment = PoliticalClassification()
 
-def classify():
-    
-    tweet_data = accessingTwitterData
-    #Saving the return value from accessingtwitterdata
-    
-    #Print Tweets in list form.
-    [tweet.text for tweet in tweet_data]
-    user_data = [[tweet.user.screen_name] for tweet in tweet_data]
-    #Saving the user's screen name seperately in order to search to see if it is verified
-    #This will add another layer to test a Tweet's level of fake news
-    
+def main():
+    print("Welcome to the Fake News Detection Program!\n")
+    user = input("Twitter user to examine: \n")
+    # creating object of TwitterClient Class
+    # checking if user exists
+    user_id = api.search_for_user(screen_name = user)
+    # calling function to get tweets
+    tweets = api.get_user_tweets(user_id = user_id, count = 200)
+
+    model_choice = input("Which model suits you?\n0 = Naive Bayes\t1 = Linear SVM\n")
+    print("Collecting and labeling tweets...\n")
+
+    # appending user data to model for labeling
+    for tweet in tweets:
+        trained_model.predict_and_label(tweet, model_choice)
+    # set of only tweets marked political
+    political_tweets = [tweet for tweet in tweets if tweet['label'] == 'POLIT']
+    # get classification for each tweet in
+    for tweet in political_tweets:
+        tweet['classification'] = sentiment.get_tweet_sentiment(tweet['text'])
+
+    left = []
+    right = []
+    center = []
+    for tweet in political_tweets:
+        if tweet['classification'] != 'None':
+            if tweet['classification'] == -1:
+                left.append(tweet)
+            elif tweet['classification'] == 1:
+                right.append(tweet)
+            elif tweet['classification'] == 0:
+                center.append(tweet)
+
+    pleft = (100*len(left)/len(political_tweets))
+    pright = (100*len(right)/len(political_tweets))
+    print("Percent left leaning tweets {} %".format(pleft))
+    print("Percent right leaning tweets {} %".format(pright))
+
+    cont = input("Would you like a detailed analysis? (y/n)\n")
+    if cont == 'y':
+        print("Classification report for chose model:\n")
+        if model_choice == 0:
+            trained_model.get_classification_report_NB()
+        else:
+            trained_model.get_classification_report_SVM()
+        if len(right) != 0:
+            print("Right leaning tweets:\n")
+            for tweet in right:
+                print(tweet['text'])
+                print(tweet['classification'])
+        elif len(left) != 0:
+            print("Left leaning tweets:\n")
+            for tweet in left:
+                print(tweet['text'])
+        elif len(center) != 0:
+            print("Center or undefined tweets:\n")
+            for tweet in center:
+                print(tweet['text'])
+
+    else:
+        print("Have a nice day :)")
 
 
+if __name__ == '__main__':
+    # calls main function
+    main()
+
+#Adapted from Zach Leonard's senior comp project.
+#Linked here: https://github.com/leonardoz15/Polarized 
