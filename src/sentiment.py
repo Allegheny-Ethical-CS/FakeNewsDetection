@@ -10,6 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from textblob import TextBlob
 from operator import itemgetter
+from sklearn.utils import shuffle
 
 class PoliticalClassification(object):
 	"""Class to handle sentiment and political classification"""
@@ -45,6 +46,23 @@ class PoliticalClassification(object):
 		polarity = blob.polarity
 
 		noun_list = self.get_nouns(blob)
+
+		fake = pd.read_csv("../data/Fake.csv")
+		true = pd.read_csv("../data/True.csv")
+
+		fake.shape
+		true.shape
+
+		fake['target'] = 'fake'
+		true['target'] = 'true'
+
+		data = pd.concat([fake, true]).reset_index(drop = True)
+		data.shape
+		data = shuffle(data)
+		data = data.reset_index(drop = True)
+		#data.head()
+		data.drop(["date"], axis=1, inplace=True)
+		print(data.head())
 
 		ratio = self.classify_tweet(polarity, noun_list)
 

@@ -45,8 +45,8 @@ def main():
 
     pleft = (100*len(left)/len(political_tweets))
     pright = (100*len(right)/len(political_tweets))
-    print("Percent left leaning tweets {} %".format(pleft))
-    print("Percent right leaning tweets {} %".format(pright))
+    #print("Percent left leaning tweets {} %".format(pleft))
+    #print("Percent right leaning tweets {} %".format(pright))
 
     cont = input("Would you like a detailed analysis? (y/n)\n")
     if cont == 'y':
