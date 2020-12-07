@@ -1,8 +1,6 @@
 # FakeNewsDetection
 Identify and label Tweets as Fake News
 
-[![Actions Status](https://github.com/Allegheny-Mozilla-Fellows/FakeNewsDetection/workflows/build/badge.svg)](https://github.com/Allegheny-Mozilla-Fellows/FakeNewsDetection/actions)
-
 # Table of contents
 
 * [About](#about)
