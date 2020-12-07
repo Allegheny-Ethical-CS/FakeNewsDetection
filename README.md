@@ -36,9 +36,9 @@ The project is funded by Mozilla Foundation and it will be used in Data Analytic
   - Credit to Zach Leonardo on [Polarized](https://github.com/leonardoz15/Polarized)
  
  - Tweet classification
-  - fake
-  - true
-  - Credit to @FavioVazquez on [fake-news](https://github.com/FavioVazquez/fake-news)
+    - fake
+    - true
+    - Credit to @FavioVazquez on [fake-news](https://github.com/FavioVazquez/fake-news)
 
   
 
