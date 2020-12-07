@@ -99,17 +99,15 @@ Currently this project examines tweets and users stored in CSV files and it only
 
 Here is the list of articles that may give the user more insights into fake news detection.
 
-- [fake-news-detection-algorithims-using-key-words](https://news.mit.edu/2018/mit-csail-machine-learning-system-detects-fake-news-from-source-1004)
+- [Fake News Detection Algorithims Using Keywords](https://news.mit.edu/2018/mit-csail-machine-learning-system-detects-fake-news-from-source-1004)
 
-- [nlp-fake-news-detection-is-vulnerable-to-attacks](https://arxiv.org/pdf/1901.09657.pdf)
+- [NLP Fake News Detection is Vulnerable to Attacks](https://arxiv.org/pdf/1901.09657.pdf)
 
-- [Facial recognition to 'predict criminals' sparks row over AI bias](https://www.bbc.com/news/technology-53165286)
+- [Fake News Classification is More Difficult than Identifying it](https://scholar.smu.edu/cgi/viewcontent.cgi?article=1036&context=datasciencereview)
 
-- [fake-news-classification-is-more-difficult-than-identifying-it](https://scholar.smu.edu/cgi/viewcontent.cgi?article=1036&context=datasciencereview)
+- [Facebook Will Use Fake News Detection](https://www.wired.com/story/facebook-click-gap-news-feed-changes/)
 
-- [facebook-will-use-fake-news-detection](https://www.wired.com/story/facebook-click-gap-news-feed-changes/)
-
-- [twitter-will-use-fake-news-detection](https://www.analyticsvidhya.com/blog/2019/12/detect-fight-neural-fake-news-nlp/)
+- [Twitter Will Use Fake News Detection](https://www.analyticsvidhya.com/blog/2019/12/detect-fight-neural-fake-news-nlp/)
 
 
 ## Ethical Discussions
