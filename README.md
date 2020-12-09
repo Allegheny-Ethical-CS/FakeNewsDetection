@@ -7,7 +7,6 @@ Identify and label Tweets as Fake News
 * [Features](#features)
 * [Installation](#installation)
 * [Run](#run)
-* [Development info](#development-info)
 * [Reading Material](#reading-material)
 * [Ethical discussions](#ethical-discussions)
 * [Future work](#future-work)
@@ -76,24 +75,9 @@ After installing these packages, you will run the program with the command
 After running this command, you will be prompted to enter the name of a given senator, which the API will cross-reference with current Twitter users. You will then confirm the name of the senator and choose your preferred diagram for output. 
 
 
-## Development info
-
-When under developmnet always install the dependencies with `poetry install` and run the program with `poetry run python program_name`.
-
-You can add new dependencies to `pyproject.toml` either manually or by `poetry add package_name`. Please refer to documentation [here](https://python-poetry.org/docs/cli/#add) for more information.
-
-Use `poetry update` for updating the dependencies to their latest versions as neccessary. Please refer to documentation [here](https://python-poetry.org/docs/cli/#update) for more information.
-
-Please use `pre-commit` hooks for linting the code. Install pre-commit with `pip install pre-commit` or follow the documentation [here](https://pre-commit.com/#install). After cloning the repository locally run `pre-commit install` to install pre-commit into your git hooks.
-
-NOTE: You would have to run `pre-commit install` every time you clone a repository. Please refer to documentation [here](https://pre-commit.com/#usage) for more information.
-
-NOTE: You will not be able to complete commit unless all the linters pass. Only staged changes will be checked at the time of commit.
-
-
 ## Future work
 
-Currently this project examines tweets and users stored in CSV files and it only utilizes the API to cross-reference the user's screen name with what is in the CSV file. Users of this program can experiment within the limitations of these files. This project can be further extended by examining tweets in real-time (i.e., outside of the file/utilizing more that the Twitter API has to offer) and adding more classification algorithims for comparison (i.e., more than just true or false), or adding features to visualize how many tweets contain false information. 
+Currently this project examines tweets and users stored in CSV files and it only utilizes the API to cross-reference the user's screen name with what is in the CSV file. Users of this program can experiment within the limitations of these files. This project can be further extended by examining tweets in real-time (i.e., outside of the file/utilizing more that the Twitter API has to offer) and adding more classification algorithims for comparison (i.e., more than just true or false), or adding features to visualize how many tweets contain false information. Another great addition to the project would be utilizing other methods to detect fake news, such as coding different algorithims, developing a Bot, or using AI.
 
 ## Reading Material
 
