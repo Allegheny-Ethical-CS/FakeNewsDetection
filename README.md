@@ -72,6 +72,11 @@ and then,
 pip install nltk
 ```
 
+and then,
+```shell
+python3 -m textblob.download_corpora
+```
+
 Please note that you may have to install more packages using pip to run this program (for example, `nltk`, `twitter`, etc.).
 
 After installing these packages, you will run the program with the command
