@@ -56,7 +56,7 @@ The project is funded by Mozilla Foundation and it will be used in Data Analytic
 
 ## Run
 
-After pulling the repo, enter into the src/ directory by using the command `cd src/` and installing the following recommended packages: __tweepy__, __textblob__ , and __nltk__ via pip. 
+After pulling the repo, enter into the src/ directory by using the command `cd src/` and installing the following recommended packages: __tweepy__, __textblob__ , __nltk__, and __textblob corpora___ via pip. 
 
 ```shell
 pip install tweepy
