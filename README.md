@@ -1,5 +1,6 @@
-# FakeNewsDetection
-Identify and label Tweets as Fake News
+# Fake News Detection
+
+## Sample Activity for the AI Course at Allegheny College
 
 # Table of contents
 
