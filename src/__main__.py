@@ -9,11 +9,25 @@ from sentiment import PoliticalClassification
 import matplotlib.pyplot as plt
 from bluebird import BlueBird as bird
 
-api = TwitterClient()
-trained_model = TrainingML()
-sentiment = PoliticalClassification()
+
+#api = TwitterClient()
+#trained_model = TrainingML()
+#sentiment = PoliticalClassification()
 
 def main():
+    print("Welcome to the Fake News Dection Program! \n")
+    searching = input("Enter a term to search. \n")
+
+    query = {
+        'fields': [
+            {'items': [searching]},
+        ]
+    }
+
+    for tweet in BlueBird().stream(query):
+        print(tweet)
+
+    """
     print("Welcome to the Fake News Detection Program!\n")
     user = input("Twitter user to examine: \n")
     query = {
@@ -57,46 +71,8 @@ def main():
 #     for tweet in political_tweets:
 #         tweet['classification'] = sentiment.get_tweet_sentiment(tweet['text'])
 
-#     left = []
-#     right = []
-#     center = []
-#     for tweet in political_tweets:
-#         if tweet['classification'] != 'None':
-#             if tweet['classification'] == -1:
-#                 left.append(tweet)
-#             elif tweet['classification'] == 1:
-#                 right.append(tweet)
-#             elif tweet['classification'] == 0:
-#                 center.append(tweet)
-
-#     pleft = (100*len(left)/len(political_tweets))
-#     pright = (100*len(right)/len(political_tweets))
-#     #print("Percent left leaning tweets {} %".format(pleft))
-#     #print("Percent right leaning tweets {} %".format(pright))
-
-#     cont = input("Would you like a detailed analysis? (y/n)\n")
-#     if cont == 'y':
-#         print("Classification report for chose model:\n")
-#         if model_choice == 0:
-#             trained_model.get_classification_report_NB()
-#         else:
-#             trained_model.get_classification_report_SVM()
-#         if len(right) != 0:
-#             print("Right leaning tweets:\n")
-#             for tweet in right:
-#                 print(tweet['text'])
-#                 print(tweet['classification'])
-#         elif len(left) != 0:
-#             print("Left leaning tweets:\n")
-#             for tweet in left:
-#                 print(tweet['text'])
-#         elif len(center) != 0:
-#             print("Center or undefined tweets:\n")
-#             for tweet in center:
-#                 print(tweet['text'])
-
-#     else:
-#         print("Have a nice day :)")
+    else:
+        print("Have a nice day :)")"""
 
 
 if __name__ == '__main__':
@@ -104,4 +80,4 @@ if __name__ == '__main__':
     main()
 
 #Adapted from Zach Leonardo's senior comp project.
-#Linked here: https://github.com/leonardoz15/Polarized 
+#Linked here: https://github.com/leonardoz15/Polarized
