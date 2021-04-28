@@ -5,12 +5,26 @@ from accessingTwitterData import TwitterClient
 from train import TrainingML
 from sentiment import PoliticalClassification
 import matplotlib.pyplot as plt
+from bluebird import BlueBird
 
-api = TwitterClient()
-trained_model = TrainingML()
-sentiment = PoliticalClassification()
+#api = TwitterClient()
+#trained_model = TrainingML()
+#sentiment = PoliticalClassification()
 
 def main():
+    print("Welcome to the Fake News Dection Program! \n")
+    searching = input("Enter a term to search. \n")
+
+    query = {
+        'fields': [
+            {'items': [searching]},
+        ]
+    }
+
+    for tweet in BlueBird().stream(query):
+        print(tweet)
+
+    """
     print("Welcome to the Fake News Detection Program!\n")
     user = input("Twitter user to examine: \n")
     # creating object of TwitterClient Class
@@ -70,7 +84,7 @@ def main():
                 print(tweet['text'])
 
     else:
-        print("Have a nice day :)")
+        print("Have a nice day :)")"""
 
 
 if __name__ == '__main__':
@@ -78,4 +92,4 @@ if __name__ == '__main__':
     main()
 
 #Adapted from Zach Leonardo's senior comp project.
-#Linked here: https://github.com/leonardoz15/Polarized 
+#Linked here: https://github.com/leonardoz15/Polarized
