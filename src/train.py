@@ -16,7 +16,7 @@ class TrainingML(object):
         Class constructor for initialization
         '''
         # import datasets, call training
-        combined_tweets = pd.read_csv("../data/combined-tweets.txt", sep="\t", header=None)
+        combined_tweets = pd.read_csv("./data/combined-tweets.txt", sep="\t", header=None)
         combined_tweets.columns = ['subject', 'tweet']
 
         # Vectorize textual data

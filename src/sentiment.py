@@ -17,7 +17,7 @@ class PoliticalClassification(object):
 	def __init__(self):
 		"""Class constructor, initializes dictionary for political classification"""
 
-		rep_tweets = pd.read_csv("../data/ExtractedTweets2.csv", header='infer')
+		rep_tweets = pd.read_csv("./data/ExtractedTweets2.csv", header='infer')
 		rep_tweets.columns = ['Party', 'Handle', 'Tweet']
 		representatives = rep_tweets.drop(columns='Tweet')
 		representatives = representatives.drop_duplicates()
@@ -47,8 +47,8 @@ class PoliticalClassification(object):
 
 		noun_list = self.get_nouns(blob)
 
-		fake = pd.read_csv("../data/Fake.csv")
-		true = pd.read_csv("../data/True.csv")
+		fake = pd.read_csv("./data/Fake.csv")
+		true = pd.read_csv("./data/True.csv")
 
 		fake.shape
 		true.shape
