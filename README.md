@@ -34,13 +34,13 @@ The project is funded by Mozilla Foundation and it will be used in Data Analytic
   - Naive Bayes
   - Linear SVM
   - Credit to Zach Leonardo on [Polarized](https://github.com/leonardoz15/Polarized)
- 
+
  - Tweet classification
     - fake
     - true
     - Credit to @FavioVazquez on [fake-news](https://github.com/FavioVazquez/fake-news)
 
-  
+
 
 ## Installation
 
@@ -53,14 +53,14 @@ The project is funded by Mozilla Foundation and it will be used in Data Analytic
     or With SSH:
 
     ```git@github.com:Allegheny-Mozilla-Fellows/FakeNewsDetection.git```
-    
+
 
 ## Run
 
-After pulling the repo, enter into the src/ directory by using the command `cd src/` and installing the following recommended packages: __tweepy__, __textblob__ , __nltk__, and __textblob corpora___ via pip. 
+After pulling the repo, enter into the src/ directory by using the command `cd src/` and installing the virtual environment requirements using pip and install textblob and its data.
 
 ```shell
-pip install tweepy
+pipenv install --dev
 ```
 and then,
 
@@ -68,22 +68,15 @@ and then,
 pip install textblob
 ```
 
-and then, 
-```shell
-pip install nltk
-```
-
 and then,
 ```shell
 python3 -m textblob.download_corpora
 ```
 
-Please note that you may have to install more packages using pip to run this program (for example, `nltk`, `twitter`, etc.).
-
 After installing these packages, you will run the program with the command
- ```python __main__.py```
+ ```pipenv run python __main__.py```
 
-After running this command, you will be prompted to enter the name of a given senator, which the API will cross-reference with current Twitter users. You will then confirm the name of the senator and choose your preferred diagram for output. 
+After running this command, you will be prompted to enter the name of a given senator, which the API will cross-reference with current Twitter users. You will then confirm the name of the senator and choose your preferred diagram for output.
 
 
 ## Future work
@@ -118,7 +111,7 @@ Here is the list of articles that may give the user more insights into fake news
 
 ## Data used
 
-The files used in this project are retrieved from Zach Leonardo's Polarized project and @FavioVazque's Fake-News project and are stored in `data`. These files store over 95,000 tweets (in `ExtractedTweets.csv` and `ExtractedTweets2.csv` each) and approximately 100 senators (in `senators.csv`). 
+The files used in this project are retrieved from Zach Leonardo's Polarized project and @FavioVazque's Fake-News project and are stored in `data`. These files store over 95,000 tweets (in `ExtractedTweets.csv` and `ExtractedTweets2.csv` each) and approximately 100 senators (in `senators.csv`).
 
 The tweets include a senator's party, their Twitter handle, and the content of the tweet. The senators file contains a senator's Twitter username and their party.
 
