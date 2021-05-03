@@ -39,7 +39,7 @@ The project is funded by Mozilla Foundation and it will be used in Data Analytic
  - Tweet classification
     - fake
     - true
-    - Credit to @FavioVazquez on [fake-news](https://github.com/FavioVazquez/fake-news)
+    - Credit to Favio Vazquez on [fake-news](https://github.com/FavioVazquez/fake-news)
 
   
 
