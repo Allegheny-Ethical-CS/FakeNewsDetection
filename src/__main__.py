@@ -129,6 +129,3 @@ def main():
 if __name__ == '__main__':
     # calls main function
     main()
-
-# Adapted from Zach Leonardo's senior comp project.
-# Linked here: https://github.com/leonardoz15/Polarized
