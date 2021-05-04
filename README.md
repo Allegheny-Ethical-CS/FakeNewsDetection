@@ -28,7 +28,8 @@ The project is funded by Mozilla Foundation and it will be used in Data Analytic
 
 ## Features
 
-- Twitter API to search for a user and their screen name
+- Twitter API to search for a user, their screen name, hashtag, or keyword.
+  - API from [Bluebird](https://github.com/labteral/bluebird)
 
 - Tweet classification(binary)
   - Naive Bayes
@@ -38,7 +39,7 @@ The project is funded by Mozilla Foundation and it will be used in Data Analytic
  - Tweet classification
     - fake
     - true
-    - Credit to @FavioVazquez on [fake-news](https://github.com/FavioVazquez/fake-news)
+    - Credit to Favio Vazquez on [fake-news](https://github.com/FavioVazquez/fake-news)
 
   
 
@@ -83,12 +84,12 @@ Please note that you may have to install more packages using pip to run this pro
 After installing these packages, you will run the program with the command
  ```python __main__.py```
 
-After running this command, you will be prompted to enter the name of a given senator, which the API will cross-reference with current Twitter users. You will then confirm the name of the senator and choose your preferred diagram for output. 
+After running this command, you will be prompted to enter a given key-word, which the API will cross-reference with current Twitter users, hashtags, and keywords. 
 
 
 ## Future work
 
-Currently this project examines tweets and users stored in CSV files and it only utilizes the API to cross-reference the user's screen name with what is in the CSV file. Users of this program can experiment within the limitations of these files. This project can be further extended by examining tweets in real-time (i.e., outside of the file/utilizing more that the Twitter API has to offer) and adding more classification algorithims for comparison (i.e., more than just true or false), or adding features to visualize how many tweets contain false information. Another great addition to the project would be utilizing other methods to detect fake news, such as coding different algorithims, developing a Bot, or using AI.
+Currently, this project examines tweets using a Twitter API provided by Bluebird. This project can be furthered by adding more classifications to the tweets or adding features to visualize how many tweets contain false information, and its effect on society, the media, and democracy. Another great addition to the project would be utilizing other methods to detect fake news, such as coding different algorithims, developing a Bot, or using AI.
 
 ## Reading Material
 
@@ -118,9 +119,7 @@ Here is the list of articles that may give the user more insights into fake news
 
 ## Data used
 
-The files used in this project are retrieved from Zach Leonardo's Polarized project and @FavioVazque's Fake-News project and are stored in `data`. These files store over 95,000 tweets (in `ExtractedTweets.csv` and `ExtractedTweets2.csv` each) and approximately 100 senators (in `senators.csv`). 
-
-The tweets include a senator's party, their Twitter handle, and the content of the tweet. The senators file contains a senator's Twitter username and their party.
+The data used in this project is retrieved from the Twitter website.
 
 
 ## Contact
