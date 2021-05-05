@@ -1,5 +1,7 @@
 # Code of Conduct for FakeNewsDetection based on the Contributor Covenant Code of Conduct
 
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](code_of_conduct.md)
+
 ## Our Pledge
 
 In the interest of fostering an open and welcoming environment, we as
