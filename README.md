@@ -55,27 +55,6 @@ The project is funded by Mozilla Foundation and it will be used in Data Analytic
 
 ## Run
 
-After pulling the repo, enter into the src/ directory by using the command `cd src/` and installing the virtual environment requirements using pip and install textblob and its data.
-
-```shell
-pipenv install --dev
-```
-and then,
-
-```shell
-pip install textblob
-```
-
-and then,
-```shell
-python3 -m textblob.download_corpora
-```
-
-After installing these packages, you will run the program with the command
- ```pipenv run python __main__.py```
-
-After running this command, you will be prompted to enter the name of a given senator, which the API will cross-reference with current Twitter users. You will then confirm the name of the senator and choose your preferred diagram for output.
-
 After pulling the repo, install textblob and its data and install the virtual environment requirements:
 
 
@@ -85,7 +64,7 @@ pip install textblob
 
 and then,
 ```shell
-pip install nltk
+python3 -m textblob.download_corpora
 ```
 
 and then, 
