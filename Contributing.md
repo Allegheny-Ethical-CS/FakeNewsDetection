@@ -4,7 +4,7 @@ Welcome to FakeNewsDetection! We would love to see your contributions to the pro
 
 ## Code of Conduct
 
-Anyone who wished to contribute to this project must follow the code of conduct.
+Anyone who wishes to contribute to this project must follow the code of conduct.
 
 ## Using the Issue Tracker
 
