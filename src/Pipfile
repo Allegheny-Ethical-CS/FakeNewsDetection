@@ -47,4 +47,3 @@ bluebird = "==0.0.8a0"
 [dev-packages]
 
 [requires]
-python_version = "3.8.0"
