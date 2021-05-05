@@ -66,10 +66,9 @@ and then,
 pip install textblob
 ```
 
-
 and then,
 ```shell
-pip install nltk
+python3 -m textblob.download_corpora
 ```
 
 After installing these packages, you will run the program with the command
