@@ -19,7 +19,7 @@ If you would like to report an issue or a bug feel free to use the Issue Tracker
 
 ## Pull Requests
 
-Feel free to make a pull request if you would like to, we would appreciate any help you would can provide. Please try to document your pull requests well and make sure your additions do not break the original code. If these requirements are not met it is unlikely that your pull request will be merged. If you are unsure of how to make a pull request please feel free to check out this tutorial on how to make one. https://app.egghead.io/playlists/how-to-contribute-to-an-open-source-project-on-github.
+Feel free to make a pull request if you would like to, we would appreciate any help you would can provide. Please try to document your pull requests well and make sure your additions do not break the original code. If these requirements are not met it is unlikely that your pull request will be merged. If you are unsure of how to make a pull request please feel free to check out [this tutorial](https://app.egghead.io/playlists/how-to-contribute-to-an-open-source-project-on-github) on how to make one.
 
 ## Commit messages
 
