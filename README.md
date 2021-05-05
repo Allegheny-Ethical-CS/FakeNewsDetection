@@ -77,6 +77,29 @@ After installing these packages, you will run the program with the command
 
 After running this command, you will be prompted to enter the name of a given senator, which the API will cross-reference with current Twitter users. You will then confirm the name of the senator and choose your preferred diagram for output.
 
+After pulling the repo, install textblob and its data and install the virtual environment requirements:
+
+
+```shell
+pip install textblob
+```
+
+and then,
+```shell
+pip install nltk
+```
+
+and then, 
+```shell
+pipenv install --dev
+```
+
+After installing these packages, you will run the program with the command
+ ```pipenv run streamlit run streamlit_web.py```
+
+After running this command, you will be prompted to enter the name of a given senator, which the API will cross-reference with current Twitter users. You will then confirm the name of the senator and choose your preferred diagram for output.
+
+
 
 ## Future work
 
