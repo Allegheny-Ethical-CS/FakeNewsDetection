@@ -1,6 +1,6 @@
 # Contributing to FakeNewsDetection
 
-Welcome to FakeNewsDetection! We would love to see your contributions to the project. Please make sure that you adhere to the following guidleines when making a contribution.
+Welcome to FakeNewsDetection! We would love to see your contributions to the project. Please make sure that you adhere to the following guidelines when making a contribution.
 
 ## Code of Conduct
 
