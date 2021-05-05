@@ -5,6 +5,7 @@ from sklearn.metrics import classification_report
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 import pandas as pd
+import preparedata as prep
 
 
 class TrainingML(object):
@@ -15,11 +16,31 @@ class TrainingML(object):
         '''
         Class constructor for initialization
         '''
+
+        train_df = pd.read_csv(
+		        "./data/train.csv"
+                )
+        test_df = pd.read_csv(
+		        "./data/test.csv"
+                )
+
+        train_df = train_df.drop(['id'], axis=1)
+        test_df = test_df.drop(['id'], axis=1)
+
+        label = train_df["label"].values
+        train_df = train_df.drop(['label'], axis=1)
+
+        combined_tweets = pd.concat([train_df, test_df], axis=0)
+
+        combined_tweets.text = combined_tweets.text.fillna('no data')
+        combined_tweets['author'] = combined_tweets['author'].fillna('unknown')
+        combined_tweets['title'] = combined_tweets['title'].fillna(combined_tweets['text'])
         # import datasets, call training
-        combined_tweets = pd.read_csv("./data/combined-tweets.txt", sep="\t", header=None)
-        combined_tweets.columns = ['subject', 'tweet']
 
         # Vectorize textual data
+        combined_tweets['author'] = prep.prepare_data(combined_tweets,'author')
+        combined_tweets['title'] = prep.prepare_data(combined_tweets,'title')
+        combined_tweets['text'] = prep.prepare_data(combined_tweets, 'text')
         self.tfidf = TfidfVectorizer(sublinear_tf=True, min_df=3, norm='l2', encoding='latin-1', ngram_range=(1, 2), stop_words='english')
 
         self.clf_NB = self.trainingNB(combined_tweets)
