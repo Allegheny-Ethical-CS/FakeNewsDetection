@@ -1,7 +1,10 @@
+from numpy.lib.ufunclike import _fix_and_maybe_deprecate_out_named_y
 import streamlit as st
 import pandas as pd
 import altair as alt
-from src import twitterscraper as ts
+from src.twitterscraper import Twitter as ts
+from src.preparedata import PrepareData as prep
+import urllib
 
 
 
@@ -12,6 +15,35 @@ def get_twitter_data():
     return df.set_index("Region")
 
 try:
+    st.sidebar.title("Welcome to FakeNewsDetection!")
+    data_retreive_method = st.sidebar.selectbox(
+            "How would you like to search Twitter?",
+            [
+                "Keyword",
+                "Hashtag",
+                "Username",
+            ],
+        )
+# Alternative syntax, declare a form and use the returned object
+    form = st.form(key='user_search')
+    text_input = form.text_input(label='What would you like to search')
+    submit_button = form.form_submit_button(label='Submit')
+# st.form_submit_button returns True upon form submit
+    if submit_button:
+        if data_retreive_method == 'Keyword':
+            results_df = ts().search_term(searching=text_input)
+            st.write(results_df)
+            results_df = prep().build_Results(results_df)
+            st.write(results_df)
+            print(results_df.head())
+        if data_retreive_method == 'Hashtag':
+            ts().search_hashtag(text_input)
+            results_df = prep().build_Results('./data/results.csv')
+            print(results_df.head())
+        if data_retreive_method == 'Username':
+            ts().search_user(text_input)
+            results_df = prep().build_Results('./data/results.csv')
+            print(results_df.head())
     df = get_twitter_data()
     countries = st.multiselect(
         "Choose countries", list(df.index), ["China", "United States of America"]

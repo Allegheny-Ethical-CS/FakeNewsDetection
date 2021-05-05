@@ -58,15 +58,14 @@ class PrepareData(object):
 
 
     def prepare_data(self, dataframe, column_name):
-            dataframe[column_name] = dataframe[column_name].apply(
-                    lambda x: self.ntlk_process(x))
-            print("\033[A")
-            return dataframe[column_name]
+        print("Preparing Data")
+        dataframe[column_name] = dataframe[column_name].apply(
+                lambda x: self.ntlk_process(x))
+        print("\033[A")
+        return dataframe[column_name]
 
-    def build_Results(self, user_results):
-        results_df = pd.read_csv(
-            user_results, 
-        )
+    def build_Results(self, dataframe):
+        results_df = dataframe
         results_df = results_df[['created_at', 'full_text', 'user_id']]
         results_df = results_df.rename(columns={'created_at':'date', 'user_id':'author','full_text':'text'})
         results_df['date'] = pd.to_datetime(results_df['date']).dt.date
@@ -74,3 +73,5 @@ class PrepareData(object):
                     lambda x: gH.getHandles(x))
         results_df['text'] = self.prepare_data(results_df, 'text')
         results_df['author'] = self.prepare_data(results_df, 'author')
+        print("Built Dataframe")
+        return results_df
