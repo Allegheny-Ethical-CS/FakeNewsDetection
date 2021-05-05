@@ -17,3 +17,8 @@ Feel free to make a pull request if you would like to, we would appreciate any h
 ## Commit messages
 
 ## Additional Questions
+
+If you have any questions or concerns about this project please contact:
+
+- Dr. Jumadinova(jjumadinova@allegheny.edu)
+- Rachael Harris (harrisr@allegheny.edu)
