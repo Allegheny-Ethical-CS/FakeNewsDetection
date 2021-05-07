@@ -31,7 +31,6 @@ class PoliticalClassification(object):
 	def get_nouns(self, blob):
 		"""Utility function to classify sentiment of passed tweet
 		using textblob's sentiment method"""
-
 		return blob.noun_phrases
 
 	def get_tweet_sentiment(self, tweet):
@@ -90,6 +89,6 @@ class PoliticalClassification(object):
 						return tweet_ratio
 				else:
 					return tweet_ratio
-	
+
 #Adapted from Zach Leonardo's senior comp project.
-#Linked here: https://github.com/leonardoz15/Polarized 
+#Linked here: https://github.com/leonardoz15/Polarized
