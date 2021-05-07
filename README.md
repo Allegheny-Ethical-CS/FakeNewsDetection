@@ -40,7 +40,6 @@ The project is funded by Mozilla Foundation and it will be used in Data Analytic
     - Credit to Favio Vazquez on [fake-news](https://github.com/FavioVazquez/fake-news)
 
 
-
 ## Installation
 
 - Clone the source code onto your machine
@@ -56,12 +55,8 @@ The project is funded by Mozilla Foundation and it will be used in Data Analytic
 
 ## Run
 
-After pulling the repo, enter into the src/ directory by using the command `cd src/` and installing the following recommended packages: __tweepy__, __textblob__ , __nltk__, and __textblob corpora___ via pip.
+After pulling the repo, install textblob and its data and install the virtual environment requirements:
 
-```shell
-pip install tweepy
-```
-and then,
 
 ```shell
 pip install textblob
@@ -69,20 +64,19 @@ pip install textblob
 
 and then,
 ```shell
-pip install nltk
-```
-
-and then,
-```shell
 python3 -m textblob.download_corpora
 ```
 
-Please note that you may have to install more packages using pip to run this program (for example, `nltk`, `twitter`, etc.).
+and then, 
+```shell
+pipenv install --dev
+```
 
 After installing these packages, you will run the program with the command
- ```python __main__.py```
+ ```pipenv run streamlit run streamlit_web.py```
 
-After running this command, you will be prompted to enter a given key-word, which the API will cross-reference with current Twitter users, hashtags, and keywords.
+After running this command, you will be prompted to enter the name of a given senator, which the API will cross-reference with current Twitter users. You will then confirm the name of the senator and choose your preferred diagram for output.
+
 
 
 ## Future work
