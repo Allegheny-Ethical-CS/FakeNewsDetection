@@ -15,7 +15,7 @@ Anyone who wishes to contribute to this project must follow the [Code of Conduct
 
 ## Using the Issue Tracker
 
-If you would like to report an issue or a bug feel free to use the Issue Tracker. The issue will be assessed and addressed as soon as possible. We ask that you please check to make sure the an issue has not already been raised on the problem that you are reporting and that you describe the issue in as much detail as possible.
+If you would like to report an issue or a bug feel free to use the [Issue Tracker](https://github.com/Allegheny-Ethical-CS/FakeNewsDetection/issues). The issue will be assessed and addressed as soon as possible. We ask that you please check to make sure the an issue has not already been raised on the problem that you are reporting and that you describe the issue in as much detail as possible.
 
 ## Pull Requests
 
