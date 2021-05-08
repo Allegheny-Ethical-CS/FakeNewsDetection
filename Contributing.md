@@ -11,7 +11,7 @@ Welcome to FakeNewsDetection! We would love to see your contributions to the pro
 
 ## Code of Conduct
 
-Anyone who wishes to contribute to this project must follow the code of conduct.
+Anyone who wishes to contribute to this project must follow the [Code of Conduct](https://github.com/Allegheny-Ethical-CS/FakeNewsDetection/blob/Security-Policy/CodeOfConduct.md).
 
 ## Using the Issue Tracker
 
