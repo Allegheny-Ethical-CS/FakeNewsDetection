@@ -38,37 +38,40 @@ try:
             print(results_df.head())
         if data_retreive_method == 'Hashtag':
             ts().search_hashtag(text_input)
-            results_df = prep().build_Results('./data/results.csv')
-            print(results_df.head())
+            results_df = ts().search_hashtag(searching=text_input)
+            st.write(results_df)
+            results_df = prep().build_Results(results_df)
+            st.write(results_df)
         if data_retreive_method == 'Username':
-            ts().search_user(text_input)
-            results_df = prep().build_Results('./data/results.csv')
-            print(results_df.head())
-    df = get_twitter_data()
-    countries = st.multiselect(
-        "Choose countries", list(df.index), ["China", "United States of America"]
-    )
-    if not countries:
-        st.error("Please select at least one country.")
-    else:
-        data = df.loc[countries]
-        data /= 1000000.0
-        st.write("### Gross Agricultural Production ($B)", data.sort_index())
+            results_df = ts().search_user(searching=text_input)
+            st.write(results_df)
+            results_df = prep().build_Results(results_df)
+            st.write(results_df)
+    # df = get_twitter_data()
+    # countries = st.multiselect(
+    #     "Choose countries", list(df.index), ["China", "United States of America"]
+    # )
+    # if not countries:
+    #     st.error("Please select at least one country.")
+    # else:
+    #     data = df.loc[countries]
+    #     data /= 1000000.0
+    #     st.write("### Gross Agricultural Production ($B)", data.sort_index())
 
-        data = data.T.reset_index()
-        data = pd.melt(data, id_vars=["index"]).rename(
-            columns={"index": "year", "value": "Gross Agricultural Product ($B)"}
-        )
-        chart = (
-            alt.Chart(data)
-            .mark_area(opacity=0.3)
-            .encode(
-                x="year:T",
-                y=alt.Y("Gross Agricultural Product ($B):Q", stack=None),
-                color="Region:N",
-            )
-        )
-        st.altair_chart(chart, use_container_width=True)
+    #     data = data.T.reset_index()
+    #     data = pd.melt(data, id_vars=["index"]).rename(
+    #         columns={"index": "year", "value": "Gross Agricultural Product ($B)"}
+    #     )
+    #     chart = (
+    #         alt.Chart(data)
+    #         .mark_area(opacity=0.3)
+    #         .encode(
+    #             x="year:T",
+    #             y=alt.Y("Gross Agricultural Product ($B):Q", stack=None),
+    #             color="Region:N",
+    #         )
+    #     )
+    #     st.altair_chart(chart, use_container_width=True)
 except urllib.error.URLError as e:
     st.error(
         """

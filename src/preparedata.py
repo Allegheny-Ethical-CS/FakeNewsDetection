@@ -3,7 +3,6 @@ import pandas as pd
 from nltk.corpus import stopwords
 from nltk.stem import LancasterStemmer, WordNetLemmatizer
 import re
-from twitterUsernameviaUserID import getHandles as gH
 from datetime import datetime
 
 class PrepareData(object):
@@ -60,17 +59,15 @@ class PrepareData(object):
     def prepare_data(self, dataframe, column_name):
         print("Preparing Data")
         dataframe[column_name] = dataframe[column_name].apply(
-                lambda x: self.ntlk_process(x))
+                lambda x: self.ntlk_process(str(x)))
         print("\033[A")
         return dataframe[column_name]
 
     def build_Results(self, dataframe):
         results_df = dataframe
-        results_df = results_df[['created_at', 'full_text', 'user_id']]
+        results_df = results_df[['created_at', 'user_id', 'full_text']]
         results_df = results_df.rename(columns={'created_at':'date', 'user_id':'author','full_text':'text'})
         results_df['date'] = pd.to_datetime(results_df['date']).dt.date
-        results_df['author'] = results_df['author'].apply(
-                    lambda x: gH.getHandles(x))
         results_df['text'] = self.prepare_data(results_df, 'text')
         results_df['author'] = self.prepare_data(results_df, 'author')
         print("Built Dataframe")
