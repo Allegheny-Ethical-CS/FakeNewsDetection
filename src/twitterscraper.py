@@ -3,10 +3,8 @@ import os
 
 import pandas as pd
 from bluebird import BlueBird
-from bluebird.scraper import BlueBird
 from io import StringIO
-from twitterUsernameviaUserID import getHandles as gH
-
+import progressbar
 
 
 class Twitter(object):
@@ -16,9 +14,8 @@ class Twitter(object):
     #api = TwitterClient()
     #trained_model = TrainingML()
     #sentiment = PoliticalClassification()
-
+        self.bird = BlueBird()
         self.user_results = "./data/results.csv"
-
 
     def search_term(self, searching):
         index = 0
@@ -27,19 +24,19 @@ class Twitter(object):
                 {'items': [searching]},
             ]
         }
-        results_df = pd.DataFrame(columns=['index','created_at', 'full_text', 'user_id'])
-        for tweet in BlueBird().search(query):
-            
-            index += 1
-            user = BlueBird().get_user_by_id(str(tweet['user_id']))
-            res = {"created_at":tweet['created_at'],"full_text":tweet['full_text'],"user_id":user['screen_name']}
-            results_df = results_df.append(res, ignore_index=True)
-            if index == 50:
-                results_df.set_index('index')
-                results_df = results_df.drop('index', axis=1)
-                return results_df
-        
+        results_df = pd.DataFrame(
+            columns=['index', 'created_at', 'full_text', 'user_id'])
+        with progressbar.ProgressBar(max_value=200) as bar:
+            for tweet in self.bird.search(query):
 
+                index += 1
+                user = self.bird.get_user_by_id(str(tweet['user_id']))
+                res = {"created_at": tweet['created_at'],
+                       "full_text": tweet['full_text'], "user_id": user['screen_name']}
+                results_df = results_df.append(res, ignore_index=True)
+                bar.update(index)
+                if index == 200:
+                    return results_df
 
     def search_hashtag(self, searching):
         index = 0
@@ -48,33 +45,38 @@ class Twitter(object):
                 {'items': [searching], 'target':'hashtag'},
             ]
         }
-        results_df = pd.DataFrame(columns=['index','created_at', 'full_text', 'user_id'])
-        for tweet in BlueBird().search(query):
-            
-            index += 1
-            user = BlueBird().get_user_by_id(str(tweet['user_id']))
-            res = {"created_at":tweet['created_at'],"full_text":tweet['full_text'],"user_id":user['screen_name']}
-            results_df = results_df.append(res, ignore_index=True)
-            if index == 50:
-                results_df.set_index('index')
-                results_df = results_df.drop('index', axis=1)
-                return results_df
+        results_df = pd.DataFrame(
+            columns=['index', 'created_at', 'full_text', 'user_id'])
+        with progressbar.ProgressBar(max_value=200) as bar:
+            for tweet in self.bird.search(query):
+
+                index += 1
+                user = self.bird.get_user_by_id(str(tweet['user_id']))
+                res = {"created_at": tweet['created_at'],
+                       "full_text": tweet['full_text'], "user_id": user['screen_name']}
+                results_df = results_df.append(res, ignore_index=True)
+                bar.update(index)
+                if index == 200:
+                    return results_df
 
     def search_user(self, searching):
+
         index = 0
         query = {
             'fields': [
                 {'items': [searching], 'target':'from'},
             ]
         }
-        results_df = pd.DataFrame(columns=['index','created_at', 'full_text', 'user_id'])
-        for tweet in BlueBird().search(query):
-            
-            index += 1
-            user = BlueBird().get_user_by_id(str(tweet['user_id']))
-            res = {"created_at":tweet['created_at'],"full_text":tweet['full_text'],"user_id":user['screen_name']}
-            results_df = results_df.append(res, ignore_index=True)
-            if index == 50:
-                results_df.set_index('index')
-                results_df = results_df.drop('index', axis=1)
-                return results_df
+        results_df = pd.DataFrame(
+            columns=['index', 'created_at', 'full_text', 'user_id'])
+        with progressbar.ProgressBar(max_value=200) as bar:
+            for tweet in self.bird.search(query):
+
+                index += 1
+                user = self.bird.get_user_by_id(str(tweet['user_id']))
+                res = {"created_at": tweet['created_at'],
+                       "full_text": tweet['full_text'], "user_id": user['screen_name']}
+                results_df = results_df.append(res, ignore_index=True)
+                bar.update(index)
+                if index == 200:
+                    return results_df

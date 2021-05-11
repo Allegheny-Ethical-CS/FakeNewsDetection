@@ -63,12 +63,35 @@ class PrepareData(object):
         print("\033[A")
         return dataframe[column_name]
 
+    def build_Training_Results(self, dataframe):
+        training_df = pd.DataFrame(columns=["id", "title", "author", "text"])
+        training_df['id'] = dataframe['index']
+        training_df['title'] = ''
+        training_df['author'] = dataframe['user_id']
+        training_df['text'] = dataframe['full_text']
+        training_df.shape
+        training_df.title.head(5)
+        training_df.text.head(5)
+        training_df.title = training_df.title.fillna(training_df['text'])
+        training_df.isnull().sum()
+        training_df.text = training_df.text.fillna(training_df.title)
+        training_df.isnull().sum()
+        training_df[training_df.author.isnull()]
+        training_df.author = training_df.author.fillna('unknown')
+        training_df.isnull().sum()
+        training_df['total'] = training_df['title'] + \
+            ' '+training_df['author']
+        return training_df
+
     def build_Results(self, dataframe):
         results_df = dataframe
+        results_df.set_index('index')
+        results_df = results_df.drop('index', axis=1)
         results_df = results_df[['created_at', 'user_id', 'full_text']]
         results_df = results_df.rename(columns={'created_at':'date', 'user_id':'author','full_text':'text'})
         results_df['date'] = pd.to_datetime(results_df['date']).dt.date
         results_df['text'] = self.prepare_data(results_df, 'text')
         results_df['author'] = self.prepare_data(results_df, 'author')
+
         print("Built Dataframe")
         return results_df

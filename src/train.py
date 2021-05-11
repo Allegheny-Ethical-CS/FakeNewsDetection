@@ -5,7 +5,7 @@ from sklearn.metrics import classification_report
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 import pandas as pd
-import preparedata as prep
+import src.preparedata as prep
 
 
 class TrainingML(object):
