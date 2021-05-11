@@ -16,11 +16,9 @@
 
 ## About
 
-Media outlets and social media platforms run rampant with "fake news," or information that has not been fact-checked, especially as they become more opinionated and stray away from centrist, fact-based reporting. This is an increasing issue in reporting, as the public receives most of their information in this way and depend on these outlets to be informed. According to [BBC](https://www.bbc.co.uk/bitesize/articles/zjykkmn), false information can take many forms (satire, clickbate, propaganda, and mistakes), and it can be classified as disinformation or misinformation. It is very difficult for the public to identify any media outlet or social media post as any of these classifications without reading competing claims or doing their own research. Therefore, the purpose of this project is to show how a potential Fake News Detection tool can be built and used by various platforms to warn users of the content before they read.
+Media outlets and social media platforms run rampant with "fake news," or information that has not been fact-checked, especially as they become more opinionated and stray away from centrist, fact-based reporting. This is an increasing issue in reporting, as the public receives most of their information in this way and depend on these outlets to be informed. According to [BBC](https://www.bbc.co.uk/bitesize/articles/zjykkmn), false information can take many forms (satire, clickbait, propaganda, and mistakes), and it can be classified as disinformation or misinformation. It is very difficult for the public to identify any media outlet or social media post as any of these classifications without reading competing claims or doing their own research. Therefore, the purpose of this project is to show how a potential Fake News Detection tool can be built and used by various platforms to warn users of the content before they read.
 
-This ethical tool will search through Tweets and attempt to label them as "right", "left", "centrist" and also add a level of fake news detection to them. While Twitter is currently working on this feature, it is not completely employed at the moment. The goal of this feature is to minimize the amount of fake news that the public recieves from social media outlets.
-
-This detection is done by searching the selected user's tweets for various words which indicate fake news, such as "most", "least", etc.
+This ethical tool will search through Tweets and attempt to label them as "right", "left", "centrist" and also add a level of fake news detection to them. While Twitter is currently working on this feature, it is not completely employed at the moment. The goal of this feature is to minimize the amount of fake news that the public receives from social media outlets.  This tool aims to eventually be able to use machine learning algorithms to aid in its fake news detection. This detection is done by searching the selected user's tweets for various words which indicate fake news, such as "most", "least", etc.
 
 
 The project is funded by Mozilla Foundation and it will be used in Data Analytics course at Allegheny College. Please visit the [Allegheny Ethical CS](https://csethics.allegheny.edu/) for more information.
@@ -35,13 +33,12 @@ The project is funded by Mozilla Foundation and it will be used in Data Analytic
   - Naive Bayes
   - Linear SVM
   - Credit to Zach Leonardo on [Polarized](https://github.com/leonardoz15/Polarized)
- 
+
  - Tweet classification
     - fake
     - true
     - Credit to Favio Vazquez on [fake-news](https://github.com/FavioVazquez/fake-news)
 
-  
 
 ## Installation
 
@@ -54,24 +51,15 @@ The project is funded by Mozilla Foundation and it will be used in Data Analytic
     or With SSH:
 
     ```git@github.com:Allegheny-Mozilla-Fellows/FakeNewsDetection.git```
-    
+
 
 ## Run
 
-After pulling the repo, enter into the src/ directory by using the command `cd src/` and installing the following recommended packages: __tweepy__, __textblob__ , __nltk__, and __textblob corpora___ via pip. 
+After pulling the repo, install textblob and its data and install the virtual environment requirements:
 
-```shell
-pip install tweepy
-```
-and then,
 
 ```shell
 pip install textblob
-```
-
-and then, 
-```shell
-pip install nltk
 ```
 
 and then,
@@ -79,23 +67,27 @@ and then,
 python3 -m textblob.download_corpora
 ```
 
-Please note that you may have to install more packages using pip to run this program (for example, `nltk`, `twitter`, etc.).
+and then, 
+```shell
+pipenv install --dev
+```
 
 After installing these packages, you will run the program with the command
- ```python __main__.py```
+ ```pipenv run streamlit run streamlit_web.py```
 
-After running this command, you will be prompted to enter a given key-word, which the API will cross-reference with current Twitter users, hashtags, and keywords. 
+After running this command, you will be prompted to enter the name of a given senator, which the API will cross-reference with current Twitter users. You will then confirm the name of the senator and choose your preferred diagram for output.
+
 
 
 ## Future work
 
-Currently, this project examines tweets using a Twitter API provided by Bluebird. This project can be furthered by adding more classifications to the tweets or adding features to visualize how many tweets contain false information, and its effect on society, the media, and democracy. Another great addition to the project would be utilizing other methods to detect fake news, such as coding different algorithims, developing a Bot, or using AI.
+Currently, this project examines tweets using a Twitter API provided by Bluebird. This project can be furthered by adding more classifications to the tweets or adding features to visualize how many tweets contain false information, and its effect on society, the media, and democracy. Another great addition to the project would be utilizing other methods to detect fake news, such as coding different algorithms, developing a Bot, or using AI.
 
 ## Reading Material
 
 Here is the list of articles that may give the user more insights into fake news detection.
 
-- [Fake News Detection Algorithims Using Keywords](https://news.mit.edu/2018/mit-csail-machine-learning-system-detects-fake-news-from-source-1004)
+- [Fake News Detection Algorithms Using Keywords](https://news.mit.edu/2018/mit-csail-machine-learning-system-detects-fake-news-from-source-1004)
 
 - [NLP Fake News Detection is Vulnerable to Attacks](https://arxiv.org/pdf/1901.09657.pdf)
 
@@ -108,13 +100,13 @@ Here is the list of articles that may give the user more insights into fake news
 
 ## Ethical Discussions
 
-- What happens if one news outlet or platform produces more fake news than another? Will that alter the way we percieve news and/or classify facts?
+- What happens if one news outlet or platform produces more fake news than another? Will that alter the way we perceive news and/or classify facts?
 
-- Why might algorithims be particularly harmful for detecting fake news?
+- Why might algorithms be particularly harmful for detecting fake news?
 
-- Should we enforce using fake news detecting algorithims? Do media outlets and social media platforms have an obligation to detect fake news?
+- Should we enforce using fake news detecting algorithms? Do media outlets and social media platforms have an obligation to detect fake news?
 
-- What are some of the ways we can prevent biases in fake news detection algorithims as developers and as users?
+- What are some of the ways we can prevent biases in fake news detection algorithms as developers and as users?
 
 
 ## Data used
