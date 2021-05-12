@@ -1,9 +1,3 @@
-# %% [code]
-# This Python 3 environment comes with many helpful analytics libraries installed
-# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python
-# For example, here's several helpful packages to load
-
-
 from operator import mod
 import os
 import re
@@ -11,8 +5,8 @@ import time
 import progressbar
 
 import nltk
-import numpy as np  # linear algebra
-import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
+import numpy as np  
+import pandas as pd  
 import tensorflow as tf
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
@@ -22,8 +16,6 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import one_hot
 from tensorflow.keras.models import load_model
-
-
 class MachineBuilder(object):
 
     def __init__(self):
@@ -33,23 +25,30 @@ class MachineBuilder(object):
         #sentiment = PoliticalClassification()
         self.df = pd.read_csv('./data/train.csv')
         self.test_df = pd.read_csv('./data/test.csv')
-
         self.voc_size = 5000
 
         self.sent_length = 20
         self.model_file = './models/finalized_model.sav'
         self.y = self.df['label']
-        self.X_final = np.array(self.prepare_tweets(self.build_dataframe()))
-        self.X_train_final = self.X_final[:20800]
-        self.y_final = np.array(self.y)
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-            self.X_train_final, self.y_final, test_size=0.33, random_state=42)
         nltk.download('stopwords', quiet=True)
 
     def predict_truth(self, results_df):
         for dirname, _, filenames in os.walk('./data/'):
             for filename in filenames:
                 print(os.path.join(dirname, filename))
+        x = 0
+        temp_results_df = results_df
+        while x <= 2078:
+            results_df = pd.concat([results_df, temp_results_df], ignore_index=True)
+            x += 1
+        X_final = np.array(self.prepare_tweets(results_df))
+        X_train_final = X_final[:20800]
+
+        X_test_final = X_final[5200:]
+        y_final = np.array(self.y)
+        X_test_final.shape
+        X_train, X_test, y_train, y_test = train_test_split(
+            X_train_final, y_final, test_size=0.33, random_state=42)
         print("Initiating")
         if os.path.exists(self.model_file):
             print("Trying to Find Saved Model Pt.1")
@@ -58,29 +57,18 @@ class MachineBuilder(object):
         else:
             print("Not Found")
             print("Training New Model Pt.1")
-            x = 0
-            temp_results_df = results_df
-            while x <= 102:
-                results_df = np.append(results_df, temp_results_df)
-                x += 1
-            X_final = np.array(self.prepare_tweets(results_df))
-            X_train_final = X_final[:20800]
-
-            X_test_final = X_final[20800:]
-            y_final = np.array(self.y)
-            X_test_final.shape
-            X_train, X_test, y_train, y_test = train_test_split(
-                X_train_final, y_final, test_size=0.33, random_state=42)
+            
+            model_build = self.build_model(self.prepare_tweets(self.build_dataframe()))
             model = self.train_model(
-                X_train, X_test, y_train, y_test, self.build_model(self.prepare_tweets(self.build_dataframe())))
+                X_train, X_test, y_train, y_test, model_build)
         print("Predicting")
 
         y_pred = (model.predict(X_test_final) > 0.5).astype("int32")
-
         print(y_pred.shape)
+        
         print(y_pred.shape, self.test_df.id.shape)
         y_pred.shape, self.test_df.id.shape
-        y_pred = y_pred.reshape(5200)
+        y_pred = y_pred.reshape(-1)
         print(type(y_pred))
         submission = pd.DataFrame(
             {'user': results_df.author, 'text': results_df.text, 'label': y_pred})

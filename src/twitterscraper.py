@@ -26,7 +26,7 @@ class Twitter(object):
         }
         results_df = pd.DataFrame(
             columns=['index', 'created_at', 'full_text', 'user_id'])
-        with progressbar.ProgressBar(max_value=200) as bar:
+        with progressbar.ProgressBar(max_value=20) as bar:
             for tweet in self.bird.search(query):
 
                 index += 1
@@ -35,7 +35,7 @@ class Twitter(object):
                        "full_text": tweet['full_text'], "user_id": user['screen_name']}
                 results_df = results_df.append(res, ignore_index=True)
                 bar.update(index)
-                if index == 200:
+                if index == 20:
                     return results_df
 
     def search_hashtag(self, searching):
@@ -47,7 +47,7 @@ class Twitter(object):
         }
         results_df = pd.DataFrame(
             columns=['index', 'created_at', 'full_text', 'user_id'])
-        with progressbar.ProgressBar(max_value=200) as bar:
+        with progressbar.ProgressBar(max_value=20) as bar:
             for tweet in self.bird.search(query):
 
                 index += 1
@@ -56,7 +56,7 @@ class Twitter(object):
                        "full_text": tweet['full_text'], "user_id": user['screen_name']}
                 results_df = results_df.append(res, ignore_index=True)
                 bar.update(index)
-                if index == 200:
+                if index == 20:
                     return results_df
 
     def search_user(self, searching):
@@ -69,7 +69,7 @@ class Twitter(object):
         }
         results_df = pd.DataFrame(
             columns=['index', 'created_at', 'full_text', 'user_id'])
-        with progressbar.ProgressBar(max_value=200) as bar:
+        with progressbar.ProgressBar(max_value=20) as bar:
             for tweet in self.bird.search(query):
 
                 index += 1
@@ -78,5 +78,5 @@ class Twitter(object):
                        "full_text": tweet['full_text'], "user_id": user['screen_name']}
                 results_df = results_df.append(res, ignore_index=True)
                 bar.update(index)
-                if index == 200:
+                if index == 20:
                     return results_df
