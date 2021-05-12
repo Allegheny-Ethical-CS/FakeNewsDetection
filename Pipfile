@@ -43,9 +43,11 @@ sklearn = "*"
 pytest-cov = "*"
 flake8 = "*"
 bluebird = "==0.0.8a0"
-twitterusernameviauserid = "*"
 altair = "*"
 streamlit = "*"
+tensorflow = "*"
+progressbar2 = "*"
+pandas_profiling = "*"
 
 [dev-packages]
 

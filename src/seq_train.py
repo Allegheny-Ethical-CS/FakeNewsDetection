@@ -1,136 +1,93 @@
-from operator import mod
 import os
 import re
 import time
-import progressbar
+from operator import mod
 
 import nltk
-import numpy as np  
-import pandas as pd  
+import numpy as np
+import pandas as pd
+from pandas_profiling import ProfileReport
 import tensorflow as tf
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.layers import LSTM, Dense, Dropout, Embedding
-from tensorflow.keras.models import Sequential
+from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import one_hot
-from tensorflow.keras.models import load_model
+from tensorflow.python.keras import callbacks
+from tensorflow.python.keras.backend import print_tensor
+import progressbar
+import streamlit as st
+
 class MachineBuilder(object):
 
     def __init__(self):
-
-        #api = TwitterClient()
-        #trained_model = TrainingML()
-        #sentiment = PoliticalClassification()
-        self.df = pd.read_csv('./data/train.csv')
-        self.test_df = pd.read_csv('./data/test.csv')
+        self.trainfile = './data/train.csv'
+        self.testfile = './data/test.csv'
+        self.checkpoint_path = "./models/training_1/cp.ckpt"
+        self.progress_bar = st.progress(0)
         self.voc_size = 5000
 
-        self.sent_length = 20
+        self.sent_length = 25
         self.model_file = './models/finalized_model.sav'
-        self.y = self.df['label']
-        nltk.download('stopwords', quiet=True)
 
-    def predict_truth(self, results_df):
-        for dirname, _, filenames in os.walk('./data/'):
-            for filename in filenames:
-                print(os.path.join(dirname, filename))
-        x = 0
-        temp_results_df = results_df
-        while x <= 2078:
-            results_df = pd.concat([results_df, temp_results_df], ignore_index=True)
-            x += 1
-        X_final = np.array(self.prepare_tweets(results_df))
-        X_train_final = X_final[:20800]
+    def preprocess_data(self):
+        df = pd.read_csv(self.trainfile)
+        test_df = pd.read_csv(self.testfile)
+        df.title = df.title.fillna(df['text'])
+        df.text = df.text.fillna(df.title)
+        df.author = df.author.fillna('unknown')
+        test_df.title = test_df.title.fillna(test_df['text'])
+        test_df.text = test_df.text.fillna(test_df.title)
+        test_df.author = test_df.author.fillna('unknown')
+        df = df.fillna('')
+        test_df = test_df.fillna('')
+        df['total'] = df['title'] + ' ' + df['author']
+        test_df['total'] = test_df['title'] + ' ' + test_df['author']
+        X = df.drop('label', axis=1)
+        y = df['label']
+        print(X.shape)
+        print(y.shape)
+        msg = X.copy()
+        msg_test = test_df.copy()
+        return msg, msg_test, y
 
-        X_test_final = X_final[20800:]
-        y_final = np.array(self.y)
-        X_test_final.shape
-        X_train, X_test, y_train, y_test = train_test_split(
-            X_train_final, y_final, test_size=0.33, random_state=42)
-        print("Initiating")
-        if os.path.exists(self.model_file):
-            print("Trying to Find Saved Model Pt.1")
-            model = load_model(self.model_file)
-            print("Found!")
-        else:
-            print("Not Found")
-            print("Training New Model Pt.1")
-            
-            model_build = self.build_model(self.prepare_tweets(self.build_dataframe()))
-            model = self.train_model(
-                X_train, X_test, y_train, y_test, model_build)
-        print("Predicting")
-
-        y_pred = (model.predict(X_test_final) > 0.5).astype("int32")
-        print(y_pred.shape)
-        
-        print(y_pred.shape, self.test_df.id.shape)
-        y_pred.shape, self.test_df.id.shape
-        y_pred = y_pred.reshape(-1)
-        print(type(y_pred))
-        submission = pd.DataFrame(
-            {'user': results_df.author, 'text': results_df.text, 'label': y_pred})
-        print(submission.head())
-        print(submission.shape)
-        submission.to_csv('LSMT_model_work.csv', index=True)
-        return submission
-
-    def build_dataframe(self):
-        print("Building Dataframe Pt.2")
-        main_df = pd.concat(
-            [self.df.drop(['label'], axis=1), self.test_df], axis=0)
-        main_df.shape
-        main_df.title.head(5)
-        main_df.text.head(5)
-        main_df.title = main_df.title.fillna(main_df['text'])
-        main_df.isnull().sum()
-        main_df.text = main_df.text.fillna(main_df.title)
-        main_df.isnull().sum()
-        main_df[main_df.author.isnull()]
-        main_df.author = main_df.author.fillna('unknown')
-        main_df.isnull().sum()
-        main_df['total'] = main_df['title'] + \
-            ' '+main_df['author']
-        print("Dataframe Built")
-        return main_df
-
-    def prepare_tweets(self, main_df):
-        X = main_df
-        print("Preparing Tweets Pt.3")
-        print("Messages Doing")
-        messages = X.copy()
-        messages.reset_index(inplace=True)
-        print("Messages Done")
-
-        print("Normalizing and Vectorizing Tweets")
+    def clean_data(self, msg, msg_test):
         ps = PorterStemmer()
         corpus = []
-
-        for i in progressbar.progressbar(range(0, len(messages))):
-            review = re.sub('[^a-zA-Z]', ' ', messages['total'][i])
+        corpus_test = []
+        print("Downloading Stopwords")
+        nltk.download('stopwords', quiet=True)
+        print("Downloaded")
+        for i in progressbar.progressbar(range(0, len(msg))):
+            review = re.sub('[^a-zA-Z]', ' ', msg['total'][i])
             review = review.lower()
             review = review.split()
             review = [ps.stem(
                 word)for word in review if not word in stopwords.words('english')]
             review = ' '.join(review)
             corpus.append(review)
-        corpus[0]
-        one_represent = [one_hot(words, self.voc_size) for words in corpus]
+            self.progress_bar.progress(i/len(msg))
+        for i in progressbar.progressbar(range(0, len(msg_test))):
+            review = re.sub('[^a-zA-Z]', ' ', msg_test['total'][i])
+            review = review.lower()
+            review = review.split()
+            review = [ps.stem(
+                word)for word in review if not word in stopwords.words('english')]
+            review = ' '.join(review)
+            corpus_test.append(review)
+            self.progress_bar.progress(i/len(msg_test))
+        one_rep = [one_hot(words, self.voc_size) for words in corpus]
+        one_rep_test = [one_hot(words, self.voc_size) for words in corpus_test]
         embedded_docs = pad_sequences(
-            one_represent, padding='pre', maxlen=self.sent_length)
-        print(embedded_docs[0])
-
-        print("Tweets Prepared")
+            one_rep, padding='pre', maxlen=self.sent_length)
         return embedded_docs
 
-    def build_model(self, embedded_docs):
+    def build_model(self):
         print("Building Model Pt.4")
         model = Sequential()
-        y = self.df['label']
-
-        model.add(Embedding(self.voc_size, 40, input_length=25))
+        model.add(Embedding(self.voc_size, 40, input_length=self.sent_length))
         model.add(Dropout(0.3))
         model.add(LSTM(100))
         model.add(Dropout(0.3))
@@ -140,17 +97,111 @@ class MachineBuilder(object):
         model.compile(loss='binary_crossentropy',
                            optimizer='adam', metrics=['accuracy'])
         print(model.summary())
-        print(model.summary())
-        len(embedded_docs), y.shape
         print("Model Built")
         return model
 
-    def train_model(self, X_train, X_test, y_train, y_test, model):
-
-        print("Training Model Pt.5")
-        model.fit(X_train, y_train, validation_data=(
-            X_test, y_test), epochs=20, batch_size=64)
-        print("Saving Model")
-        model.save(self.model_file)
-        print("Model Trained and Saved")
+    def train_model(self, model, embedded_docs, y):
+        X_final = np.array(embedded_docs)
+        y_final = np.array(y)
+        X_final.shape, y_final.shape
+        # Create a callback that saves the model's weights
+        early_callback = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', 
+                                                        mode='auto',
+                                                        patience=2,
+                                                        baseline=None, 
+                                                        restore_best_weights=True
+                                                        )
+        cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=self.checkpoint_path,
+                                                         save_weights_only=True,
+                                                         verbose=1,)
+        model.fit(X_final, y_final, epochs=5, batch_size=64,
+                  validation_data=(X_final, y_final), callbacks=[cp_callback, early_callback])
+        loss, acc = model.evaluate(X_final, y_final, verbose=2)
+        print("Trained model, accuracy: {:5.2f}%".format(100 * acc))
+        st.success("Trained model, accuracy: {:5.2f}%".format(100 * acc))
         return model
+
+    def load_model(self):
+        print("Initiating")
+        with st.spinner("Searching for Model"):
+            print("Trying to Find Saved Model Pt.1")
+            model = self.build_model()
+            if os.path.exists(self.checkpoint_path+".index"):
+                print("Found!\nLoading Model")
+                model.load_weights(self.checkpoint_path)
+
+                st.success("Found Model\nLoading Model")
+                return True, model
+            else:
+                print("Not Found\nTraining New Model")
+                st.warning("Model Not Found\nBuilding a New One")
+                return False, model
+
+    def preprocess_tweets(self, results_df):
+        tweets_df = results_df
+        tweets_df.title = tweets_df.title.fillna(tweets_df['text'])
+        tweets_df.text = tweets_df.text.fillna(tweets_df.title)
+        tweets_df.author = tweets_df.author.fillna('unknown')
+        tweets_df = tweets_df.fillna('')
+        tweets_df['total'] = tweets_df['title'] + ' ' + tweets_df['author']
+        tweets_test = tweets_df.copy()
+        return tweets_test
+
+    def clean_tweets(self, tweets_test):
+        ps = PorterStemmer()
+        corpus_test = []
+        print("Downloading Stopwords")
+        nltk.download('stopwords', quiet=True)
+        print("Downloaded")
+        for i in progressbar.progressbar(range(0, len(tweets_test))):
+            review = re.sub('[^a-zA-Z]', ' ', tweets_test['total'][i])
+            review = review.lower()
+            review = review.split()
+            review = [ps.stem(
+                word)for word in review if not word in stopwords.words('english')]
+            review = ' '.join(review)
+            corpus_test.append(review)
+            self.progress_bar.progress(i/len(tweets_test))
+        one_rep_test = [one_hot(words, self.voc_size) for words in corpus_test]
+        embedded_docs_tweets_test = pad_sequences(
+            one_rep_test, padding='pre', maxlen=self.sent_length)
+        return embedded_docs_tweets_test
+
+    def predict_results(self, model, tweets_test, embedded_docs_tweets_test):
+        test_final = embedded_docs_tweets_test
+        y_pred = model.predict_classes(test_final)
+        predictions = pd.DataFrame()
+        predictions['author'] = tweets_test['author']
+        predictions['text'] = tweets_test['text']
+        predictions['label'] = y_pred
+        predictions['label'] = predictions['label'].astype(int)
+        predictions["label"] = ['Unreliable' if x==1 else 'Reliable' if x==0 else 'broken' for x in predictions['label']]
+        return predictions
+
+    def display_valid(self, results_df):
+        model_exists, model = self.load_model()
+        if model_exists:
+            with st.spinner("Predicting Fake News"):
+                tweets_test = self.preprocess_tweets(results_df)
+                embedded_docs_tweets_test = self.clean_tweets(tweets_test)
+                predictions = self.predict_results(
+                    model, tweets_test, embedded_docs_tweets_test)
+            st.success("Predictions Made")
+            return predictions
+        else:
+            with st.spinner('Processing Data'):
+                msg, msg_test, y = self.preprocess_data()
+            st.success("Data Processed")
+            with st.spinner('Cleaning Data'):
+                embedded_docs = self.clean_data(msg, msg_test)
+            st.success("Data Cleaned")
+            with st.spinner('Training Model'):
+                model = self.train_model(model, embedded_docs, y)
+            st.success("Model Trained")
+            with st.spinner("Predicting Fake News"):
+                tweets_test = self.preprocess_tweets(results_df)
+                embedded_docs_tweets_test = self.clean_tweets(tweets_test)
+                predictions = self.predict_results(
+                    model, tweets_test, embedded_docs_tweets_test)
+            st.success("Predictions Made")
+            return predictions

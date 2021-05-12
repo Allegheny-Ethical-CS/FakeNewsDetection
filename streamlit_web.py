@@ -9,7 +9,8 @@ import altair as alt
 from src.twitterscraper import Twitter as ts
 from src.preparedata import PrepareData as prep
 import urllib
-
+import pandas as pd
+from pandas_profiling import ProfileReport
 
 # @st.cache
 def get_twitter_data():
@@ -35,23 +36,37 @@ try:
 # st.form_submit_button returns True upon form submit
     if submit_button:
         if data_retreive_method == 'Keyword':
-            results_df = ts().search_user(searching=text_input)
-            training_df = prep().build_Training_Results(results_df)
-            results_df = prep().build_Results(results_df)
-            st.write(results_df)
+            with st.spinner("Collecting tweets"):
+                results_df = ts().search_term(searching=text_input)
+            st.success("Collected")
+            with st.spinner("Formatting Tweets"):
+                training_df = prep().build_Training_Results(results_df)
+                results_df = prep().build_Results(results_df)
+            st.success("Formatted")
         if data_retreive_method == 'Hashtag':
-            results_df = ts().search_user(searching=text_input)
-            training_df = prep().build_Training_Results(results_df)
-            results_df = prep().build_Results(results_df)
-            st.write(results_df)
+            with st.spinner("Collecting tweets"):
+                results_df = ts().search_hashtag(searching=text_input)
+            st.success("Collected")
+            with st.spinner("Formatting Tweets"):
+                training_df = prep().build_Training_Results(results_df)
+                results_df = prep().build_Results(results_df)
+            st.success("Formatted")
         if data_retreive_method == 'Username':
-            results_df = ts().search_user(searching=text_input)
-            training_df = prep().build_Training_Results(results_df)
-            results_df = prep().build_Results(results_df)
+            with st.spinner("Collecting tweets"):
+                results_df = ts().search_user(searching=text_input)
+            st.success("Collected")
+            with st.spinner("Formatting Tweets"):
+                training_df = prep().build_Training_Results(results_df)
+                results_df = prep().build_Results(results_df)
+            st.success("Formatted")
             st.write(results_df)
         print("Entering Machine Learning")
         mach = ms()
-        st.write(mach.predict_truth(training_df))
+        results = mach.display_valid(training_df)
+        st.empty()
+        st.write(results)
+        design_report = ProfileReport(results)
+        design_report.to_file(output_file='report.html')
     # df = get_twitter_data()
     # countries = st.multiselect(
     #     "Choose countries", list(df.index), ["China", "United States of America"]
