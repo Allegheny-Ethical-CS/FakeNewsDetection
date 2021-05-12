@@ -11,6 +11,11 @@ from src.preparedata import PrepareData as prep
 import urllib
 import pandas as pd
 from pandas_profiling import ProfileReport
+from streamlit_pandas_profiling import st_profile_report
+from autoviz.AutoViz_Class import AutoViz_Class
+import webbrowser
+
+AV = AutoViz_Class()
 
 # @st.cache
 def get_twitter_data():
@@ -33,16 +38,28 @@ try:
     form = st.form(key='user_search')
     text_input = form.text_input(label='What would you like to search')
     submit_button = form.form_submit_button(label='Submit')
+    
 # st.form_submit_button returns True upon form submit
     if submit_button:
         if data_retreive_method == 'Keyword':
+            if text_input=='develop':
+                input_file = st.file_uploader("please upload your file")
+                while input_file == None:
+                    os.wait()
+                results_df = pd.read_csv(input_file)
+                with st.spinner("Formatting File"):
+                    training_df = prep().build_Training_Results(results_df)
+                    results_df = prep().build_Results(results_df)
+                st.success("Formatted")
             with st.spinner("Collecting tweets"):
                 results_df = ts().search_term(searching=text_input)
             st.success("Collected")
+            st.empty()
             with st.spinner("Formatting Tweets"):
                 training_df = prep().build_Training_Results(results_df)
                 results_df = prep().build_Results(results_df)
             st.success("Formatted")
+            st.emtpy()
         if data_retreive_method == 'Hashtag':
             with st.spinner("Collecting tweets"):
                 results_df = ts().search_hashtag(searching=text_input)
@@ -67,6 +84,7 @@ try:
         st.write(results)
         design_report = ProfileReport(results)
         design_report.to_file(output_file='report.html')
+        webbrowser.open_new_tab(url="report.html")
     # df = get_twitter_data()
     # countries = st.multiselect(
     #     "Choose countries", list(df.index), ["China", "United States of America"]
