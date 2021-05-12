@@ -44,7 +44,7 @@ class MachineBuilder(object):
         X_final = np.array(self.prepare_tweets(results_df))
         X_train_final = X_final[:20800]
 
-        X_test_final = X_final[5200:]
+        X_test_final = X_final[20800:]
         y_final = np.array(self.y)
         X_test_final.shape
         X_train, X_test, y_train, y_test = train_test_split(
