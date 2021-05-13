@@ -16,7 +16,7 @@ class Twitter(object):
     #sentiment = PoliticalClassification()
         self.bird = BlueBird()
         self.user_results = "./data/results.csv"
-        self.max = 150
+        self.max = 5
 
     def search_term(self, searching):
         progressbar = st.progress(0)

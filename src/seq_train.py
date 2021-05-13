@@ -4,6 +4,7 @@ import time
 from operator import mod
 
 import nltk
+from nltk.corpus.reader.chasen import test
 import numpy as np
 import pandas as pd
 from pandas_profiling import ProfileReport
@@ -35,6 +36,8 @@ class MachineBuilder(object):
     def preprocess_data(self):
         df = pd.read_csv(self.trainfile)
         test_df = pd.read_csv(self.testfile)
+        df = df.sample(frac=1)
+        test_df = test_df.sample(frac=1)
         df.title = df.title.fillna(df['text'])
         df.text = df.text.fillna(df.title)
         df.author = df.author.fillna('unknown')
@@ -89,7 +92,7 @@ class MachineBuilder(object):
         model = Sequential()
         model.add(Embedding(self.voc_size, 40, input_length=self.sent_length))
         model.add(Dropout(0.3))
-        model.add(LSTM(100))
+        model.add(LSTM(1))
         model.add(Dropout(0.3))
         model.add(Dense(64, activation='relu'))
         model.add(Dropout(0.3))
@@ -114,8 +117,8 @@ class MachineBuilder(object):
         cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=self.checkpoint_path,
                                                          save_weights_only=True,
                                                          verbose=1,)
-        model.fit(X_final, y_final, epochs=5, batch_size=64,
-                  validation_data=(X_final, y_final), callbacks=[cp_callback, early_callback])
+        model.fit(X_final, y_final, epochs=30, batch_size=128,
+                  validation_data=(X_final, y_final), callbacks=[early_callback])
         loss, acc = model.evaluate(X_final, y_final, verbose=2)
         print("Trained model, accuracy: {:5.2f}%".format(100 * acc))
         st.success("Trained model, accuracy: {:5.2f}%".format(100 * acc))
