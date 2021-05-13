@@ -16,8 +16,10 @@ class Twitter(object):
     #sentiment = PoliticalClassification()
         self.bird = BlueBird()
         self.user_results = "./data/results.csv"
+        self.max = 150
 
     def search_term(self, searching):
+        progressbar = st.progress(0)
         index = 0
         query = {
             'fields': [
@@ -33,9 +35,10 @@ class Twitter(object):
             res = {"created_at": tweet['created_at'],
                    "full_text": tweet['full_text'], "user_id": user['screen_name']}
             results_df = results_df.append(res, ignore_index=True)
-            print("Found tweet ", index, " out of 20")
-            if index == 20:
+            if index ==self.max:
                 return results_df
+            else:
+                progressbar.progress(index/self.max)
 
     def search_hashtag(self, searching):
         progressbar = st.progress(0)
@@ -54,9 +57,10 @@ class Twitter(object):
             res = {"created_at": tweet['created_at'],
                 "full_text": tweet['full_text'], "user_id": user['screen_name']}
             results_df = results_df.append(res, ignore_index=True)
-            progressbar.progress(index * 5)
-            if index == 20:
+            if index ==self.max:
                 return results_df
+            else:
+                progressbar.progress(index/self.max)
 
     def search_user(self, searching):
         progressbar = st.progress(0)
@@ -75,7 +79,8 @@ class Twitter(object):
             res = {"created_at": tweet['created_at'],
                    "full_text": tweet['full_text'], "user_id": user['screen_name']}
             results_df = results_df.append(res, ignore_index=True)
-            print("Found tweet ", index, " out of 20")
-            progressbar.progress(index * 5)
-            if index == 20:
+            print("Found tweet", index, "out of 50")
+            if index ==self.max:
                 return results_df
+            else:
+                progressbar.progress(index/self.max)

@@ -79,8 +79,7 @@ class PrepareData(object):
         training_df[training_df.author.isnull()]
         training_df.author = training_df.author.fillna('unknown')
         training_df.isnull().sum()
-        training_df['total'] = training_df['title'] + \
-            ' '+training_df['author']
+        training_df['total'] = training_df['title']
         return training_df
 
     def build_Results(self, dataframe):
@@ -90,8 +89,8 @@ class PrepareData(object):
         results_df = results_df[['created_at', 'user_id', 'full_text']]
         results_df = results_df.rename(columns={'created_at':'date', 'user_id':'author','full_text':'text'})
         results_df['date'] = pd.to_datetime(results_df['date']).dt.date
-        results_df['text'] = self.prepare_data(results_df, 'text')
-        results_df['author'] = self.prepare_data(results_df, 'author')
+        # results_df['text'] = self.prepare_data(results_df, 'text')
+        # results_df['author'] = self.prepare_data(results_df, 'author')
 
         print("Built Dataframe")
         return results_df

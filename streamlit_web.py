@@ -12,10 +12,7 @@ import urllib
 import pandas as pd
 from pandas_profiling import ProfileReport
 from streamlit_pandas_profiling import st_profile_report
-from autoviz.AutoViz_Class import AutoViz_Class
 import webbrowser
-
-AV = AutoViz_Class()
 
 # @st.cache
 def get_twitter_data():
@@ -42,41 +39,38 @@ try:
 # st.form_submit_button returns True upon form submit
     if submit_button:
         if data_retreive_method == 'Keyword':
-            if text_input=='develop':
-                input_file = st.file_uploader("please upload your file")
-                while input_file == None:
-                    os.wait()
-                results_df = pd.read_csv(input_file)
-                with st.spinner("Formatting File"):
+            with st.empty():
+                with st.spinner("Collecting tweets"):
+                    results_df = ts().search_term(searching=text_input)
+                st.success("Collected")
+            with st.empty():
+                with st.spinner("Formatting Tweets"):
                     training_df = prep().build_Training_Results(results_df)
                     results_df = prep().build_Results(results_df)
                 st.success("Formatted")
-            with st.spinner("Collecting tweets"):
-                results_df = ts().search_term(searching=text_input)
-            st.success("Collected")
-            st.empty()
-            with st.spinner("Formatting Tweets"):
-                training_df = prep().build_Training_Results(results_df)
-                results_df = prep().build_Results(results_df)
-            st.success("Formatted")
-            st.emtpy()
+                st.write(results_df)
         if data_retreive_method == 'Hashtag':
-            with st.spinner("Collecting tweets"):
-                results_df = ts().search_hashtag(searching=text_input)
-            st.success("Collected")
-            with st.spinner("Formatting Tweets"):
-                training_df = prep().build_Training_Results(results_df)
-                results_df = prep().build_Results(results_df)
-            st.success("Formatted")
+            with st.empty():
+                with st.spinner("Collecting tweets"):
+                    results_df = ts().search_hashtag(searching=text_input)
+                st.success("Collected")
+            with st.empty():
+                with st.spinner("Formatting Tweets"):
+                    training_df = prep().build_Training_Results(results_df)
+                    results_df = prep().build_Results(results_df)
+                st.success("Formatted")
+                st.write(results_df)
         if data_retreive_method == 'Username':
-            with st.spinner("Collecting tweets"):
-                results_df = ts().search_user(searching=text_input)
-            st.success("Collected")
-            with st.spinner("Formatting Tweets"):
-                training_df = prep().build_Training_Results(results_df)
-                results_df = prep().build_Results(results_df)
-            st.success("Formatted")
-            st.write(results_df)
+            with st.empty():
+                with st.spinner("Collecting tweets"):
+                    results_df = ts().search_user(searching=text_input)
+                st.success("Collected")
+            with st.empty():
+                with st.spinner("Formatting Tweets"):
+                    training_df = prep().build_Training_Results(results_df)
+                    results_df = prep().build_Results(results_df)
+                st.success("Formatted")
+                st.write(results_df)
         print("Entering Machine Learning")
         mach = ms()
         results = mach.display_valid(training_df)
