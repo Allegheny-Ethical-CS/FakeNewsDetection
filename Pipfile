@@ -45,9 +45,11 @@ flake8 = "*"
 bluebird = "==0.0.8a0"
 altair = "*"
 streamlit = "*"
-tensorflow = "*"
+twitterusernameviauserid = "*"
+pandas-profiling = "*"
 progressbar2 = "*"
-pandas_profiling = "*"
+streamlit-pandas-profiling = "*"
+tensorflow = "==2.5.0-rc3"
 
 [dev-packages]
 
