@@ -39,3 +39,6 @@ def test_ntlk_process():
     for element in double_punc_list:
         in_new_msg = element in new_msg
         assert in_new_msg == False
+
+def test_prepare_data():
+    

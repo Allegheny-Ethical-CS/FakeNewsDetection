@@ -15,9 +15,6 @@ class PrepareData(object):
 
     def remove_URL(self, text):
             url = re.compile(r'https?://\S+|www\.\S+')
-            if url:
-                print(True)
-            print("In remove URL: ", text)
             return url.sub(r'', text)
 
 
