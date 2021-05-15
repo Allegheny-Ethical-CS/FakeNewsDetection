@@ -15,6 +15,9 @@ class PrepareData(object):
 
     def remove_URL(self, text):
             url = re.compile(r'https?://\S+|www\.\S+')
+            if url:
+                print(True)
+            print("In remove URL: ", text)
             return url.sub(r'', text)
 
 
@@ -37,9 +40,9 @@ class PrepareData(object):
 
     def ntlk_process(self, text):
 
-            self.remove_emoji(text)
-            self.remove_html(text)
-            self.remove_URL(text)
+            text = self.remove_emoji(text)
+            text = self.remove_html(text)
+            text = self.remove_URL(text)
             text = text.lower()
             text = re.sub(r'[!]+', '!', text)
             text = re.sub(r'[?]+', '?', text)
