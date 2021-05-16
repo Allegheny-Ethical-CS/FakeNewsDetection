@@ -91,6 +91,7 @@ def test_prepare_data():
 
 
 def test_build_Results():
+    """Check that build results function returns properly labelled and processed dataframe"""
     search_term_df = ts().search_term("court")
     assert not(search_term_df.empty)
     preparedata = prep.PrepareData()
