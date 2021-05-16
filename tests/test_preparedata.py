@@ -2,8 +2,10 @@ import pytest
 import string
 import random
 import pandas as pd
+from datetime import datetime
 
 import src.preparedata as prep
+from src.twitterscraper import Twitter as ts
 
 block_list = ["!!", " the ", "https://github.com/Allegheny-Ethical-CS", "<bold>", "<italics>", " is ", ":", "{", "😻", "}", "  ", "!!", "??", ".."]
 
@@ -13,7 +15,6 @@ def test_remove_URL():
     msg_url_removed = "I can't believe what I saw on  the other day!"
     preparedata = prep.PrepareData()
     new_msg = preparedata.remove_URL(msg)
-    print(new_msg)
     assert new_msg == msg_url_removed
 
 def test_remove_html():
@@ -21,7 +22,6 @@ def test_remove_html():
     msg_html_removed = " This bill will have an important effect on immigration reform "
     preparedata = prep.PrepareData()
     new_msg = preparedata.remove_html(msg)
-    print(new_msg)
     assert new_msg == msg_html_removed
 
 def test_remove_emojis():
@@ -29,7 +29,6 @@ def test_remove_emojis():
     msg_emoji_removed = "Ask my cats what they think of this bill"
     preparedata = prep.PrepareData()
     new_msg = preparedata.remove_emoji(msg)
-    print(new_msg)
     assert new_msg == msg_emoji_removed
 
 def test_ntlk_process():
@@ -47,11 +46,9 @@ def test_ntlk_process():
 def test_ntlk_process_randomized():
     for i in range(10):
         test_str = random_str(number_components = 15)
-        print("test_str: ", test_str)
         assert len(test_str) > 0
         preparedata = prep.PrepareData()
         processed_str = preparedata.ntlk_process(test_str)
-        print("processed_str: ", processed_str)
         for element in block_list:
             assert not(element in processed_str)
 
@@ -80,6 +77,21 @@ def test_prepare_data():
             assert not(element in dataframe['Column 1'][ind])
             assert not(element in dataframe['Column 2'][ind])
             assert not(element in dataframe['Column 3'][ind])
+
+def test_build_Results():
+    search_term_df = ts().search_term("court")
+    assert not(search_term_df.empty)
+    preparedata = prep.PrepareData()
+    built_df = preparedata.build_Results(search_term_df)
+    col_names = built_df.columns.values.tolist()
+    assert "date" in col_names
+    assert "text" in col_names
+    assert "author" in col_names
+
+    for ind in built_df.index:
+        for element in block_list:
+            assert not(element in built_df["author"][ind])
+            assert not(element in built_df["text"][ind])
 
 
 def random_str(number_components = 12):
