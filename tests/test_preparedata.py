@@ -1,3 +1,5 @@
+"""Check the correct preparation of twitter data for model consumption."""
+
 import pytest
 import string
 import random
@@ -11,7 +13,7 @@ block_list = ["!!", " the ", "https://github.com/Allegheny-Ethical-CS", "github.
 
 
 def test_remove_URL():
-    """Check that remove URL function finds and removes URL in string"""
+    """Check that remove URL function finds and removes URL in string."""
     msg = "I can't believe what I saw on https://github.com/Allegheny-Ethical-CS/FakeNewsDetection the other day!"
     msg_url_removed = "I can't believe what I saw on  the other day!"
     preparedata = prep.PrepareData()
@@ -19,7 +21,7 @@ def test_remove_URL():
     assert new_msg == msg_url_removed
 
 def test_remove_html():
-    """Check that remove HTML function finds and removes HTML tags in string"""
+    """Check that remove HTML function finds and removes HTML tags in string."""
     msg = "<strong> This bill will have an important effect on immigration reform </strong>"
     msg_html_removed = " This bill will have an important effect on immigration reform "
     preparedata = prep.PrepareData()
@@ -27,7 +29,7 @@ def test_remove_html():
     assert new_msg == msg_html_removed
 
 def test_remove_emojis():
-    """Check that remove emoji function finds and removes emojis in a string"""
+    """Check that remove emoji function finds and removes emojis in a string."""
     msg = "Ask my cats what they think of this bill😻"
     msg_emoji_removed = "Ask my cats what they think of this bill"
     preparedata = prep.PrepareData()
@@ -35,7 +37,7 @@ def test_remove_emojis():
     assert new_msg == msg_emoji_removed
 
 def test_ntlk_process():
-    """Check that ntlk process function finds and removes extraneous information such as html tags, urls, double punctuation, and stop words"""
+    """Check that ntlk process function finds and removes extraneous information such as html tags, urls, double punctuation, and stop words."""
     original_msg = "<strong> This bill will have an important effect on \
      immigration reform </strong>.. Ask my cats what they think of this \
      bill😻,, I can't believe what I saw on https://github.com/Allegheny-Ethical-CS/FakeNewsDetection the other day!!!"
@@ -53,7 +55,7 @@ def test_ntlk_process():
 
 
 def test_ntlk_process_randomized():
-    """Check that ntlk process function finds and removes extraneous information using random string generation"""
+    """Check that ntlk process function finds and removes extraneous information using random string generation."""
     for i in range(10):
         test_str = random_str(number_components = 15)
         assert len(test_str) > 0
@@ -64,7 +66,7 @@ def test_ntlk_process_randomized():
 
 
 def test_prepare_data():
-    """Check that prepare data properly processes each string in dataframe"""
+    """Check that prepare data properly processes each string in dataframe."""
     test_str = ""
     col_1_rows = []
     col_2_rows = []
@@ -91,7 +93,7 @@ def test_prepare_data():
 
 
 def test_build_Results():
-    """Check that build results function returns properly labelled and processed dataframe"""
+    """Check that build results function returns properly labelled and processed dataframe."""
     search_term_df = ts().search_term("court")
     assert not(search_term_df.empty)
     preparedata = prep.PrepareData()
@@ -108,7 +110,7 @@ def test_build_Results():
 
 
 def random_str(number_components = 12):
-    """Generate random string with some components that will need to be removed by ntlk process"""
+    """Generate random string with some components that will need to be removed by ntlk process."""
     test_str = ""
     addition = ""
     component_id = 0
