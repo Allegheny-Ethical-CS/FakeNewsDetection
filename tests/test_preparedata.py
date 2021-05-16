@@ -46,7 +46,11 @@ def test_ntlk_process():
     double_punc_list = ["  ", "!!", "??", ".."]
     for element in double_punc_list:
         assert not(element in new_msg)
-    
+        
+    remove_function_list = ["<strong>", "</strong>", "😻", "https://github.com/Allegheny-Ethical-CS/FakeNewsDetection"]
+    for element in remove_function_list:
+        assert not(element in new_msg)
+
 
 def test_ntlk_process_randomized():
     for i in range(10):
