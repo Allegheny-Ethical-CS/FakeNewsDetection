@@ -7,7 +7,7 @@ from datetime import datetime
 import src.preparedata as prep
 from src.twitterscraper import Twitter as ts
 
-block_list = ["!!", " the ", "https://github.com/Allegheny-Ethical-CS", "<bold>", "<italics>", " is ", ":", "{", "😻", "}", "  ", "!!", "??", ".."]
+block_list = ["!!", " the ", "https://github.com/Allegheny-Ethical-CS", "github.com/Allegheny-Ethical-CS", "<bold>", "<italics>", " is ", ":", "{", "😻", "}", "  ", "!!", "??", ".."]
 
 
 def test_remove_URL():
@@ -46,13 +46,14 @@ def test_ntlk_process():
     double_punc_list = ["  ", "!!", "??", ".."]
     for element in double_punc_list:
         assert not(element in new_msg)
-        
+
     remove_function_list = ["<strong>", "</strong>", "😻", "https://github.com/Allegheny-Ethical-CS/FakeNewsDetection"]
     for element in remove_function_list:
         assert not(element in new_msg)
 
 
 def test_ntlk_process_randomized():
+    """Check that ntlk process function finds and removes extraneous information using random string generation"""
     for i in range(10):
         test_str = random_str(number_components = 15)
         assert len(test_str) > 0
@@ -63,6 +64,7 @@ def test_ntlk_process_randomized():
 
 
 def test_prepare_data():
+    """Check that prepare data properly processes each string in dataframe"""
     test_str = ""
     col_1_rows = []
     col_2_rows = []
@@ -111,7 +113,7 @@ def random_str(number_components = 12):
     component_id = 0
     component_len = 0
     for i in range(number_components):
-        component_id = random.randint(0,10)
+        component_id = random.randint(0,14)
         component_len = random.randint(0,12)
         # random string generation credit to https://www.educative.io/edpresso/how-to-generate-a-random-string-in-python
         if(component_id == 0):
@@ -146,5 +148,7 @@ def random_str(number_components = 12):
             addition = " is "
         if(component_id == 12):
             addition = "!!"
+        if(component_id == 13):
+            addition = " github.com/Allegheny-Ethical-CS "
 
     return test_str
