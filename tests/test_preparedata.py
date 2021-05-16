@@ -11,6 +11,7 @@ block_list = ["!!", " the ", "https://github.com/Allegheny-Ethical-CS", "<bold>"
 
 
 def test_remove_URL():
+    """Check that remove URL function finds and removes URL in string"""
     msg = "I can't believe what I saw on https://github.com/Allegheny-Ethical-CS/FakeNewsDetection the other day!"
     msg_url_removed = "I can't believe what I saw on  the other day!"
     preparedata = prep.PrepareData()
@@ -18,6 +19,7 @@ def test_remove_URL():
     assert new_msg == msg_url_removed
 
 def test_remove_html():
+    """Check that remove HTML function finds and removes HTML tags in string"""
     msg = "<strong> This bill will have an important effect on immigration reform </strong>"
     msg_html_removed = " This bill will have an important effect on immigration reform "
     preparedata = prep.PrepareData()
@@ -25,6 +27,7 @@ def test_remove_html():
     assert new_msg == msg_html_removed
 
 def test_remove_emojis():
+    """Check that remove emoji function finds and removes emojis in a string"""
     msg = "Ask my cats what they think of this bill😻"
     msg_emoji_removed = "Ask my cats what they think of this bill"
     preparedata = prep.PrepareData()
@@ -32,6 +35,7 @@ def test_remove_emojis():
     assert new_msg == msg_emoji_removed
 
 def test_ntlk_process():
+    """Check that ntlk process function finds and removes extraneous information such as html tags, urls, double punctuation, and stop words"""
     original_msg = "<strong> This bill will have an important effect on \
      immigration reform </strong>.. Ask my cats what they think of this \
      bill😻,, I can't believe what I saw on https://github.com/Allegheny-Ethical-CS/FakeNewsDetection the other day!!!"
@@ -42,6 +46,7 @@ def test_ntlk_process():
     double_punc_list = ["  ", "!!", "??", ".."]
     for element in double_punc_list:
         assert not(element in new_msg)
+    
 
 def test_ntlk_process_randomized():
     for i in range(10):
@@ -77,6 +82,7 @@ def test_prepare_data():
             assert not(element in dataframe['Column 1'][ind])
             assert not(element in dataframe['Column 2'][ind])
             assert not(element in dataframe['Column 3'][ind])
+
 
 def test_build_Results():
     search_term_df = ts().search_term("court")
