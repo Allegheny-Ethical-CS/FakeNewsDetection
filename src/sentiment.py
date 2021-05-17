@@ -61,7 +61,7 @@ class PoliticalClassification(object):
 		# data = data.reset_index(drop = True)
 		#data.head()
 		# data.drop(["date"], axis=1, inplace=True)
-		print(data.head())
+		# print(data.head())
 
 		ratio = self.classify_tweet(polarity, noun_list)
 
