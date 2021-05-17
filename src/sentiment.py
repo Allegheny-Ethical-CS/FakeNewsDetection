@@ -24,14 +24,13 @@ class PoliticalClassification(object):
 
 		# dictionary to store politcians and their party
 		self.politicians = representatives.to_dict('records')
-		# for entry in self.politicians:
-		# 	if "SenWarren" in entry['Handle']:
-		# 		print(entry['Party'])
+		for entry in self.politicians:
+			if "SenWarren" in entry['Handle']:
+		 		print(entry['Party'])
 
 	def get_nouns(self, blob):
 		"""Utility function to classify sentiment of passed tweet
 		using textblob's sentiment method"""
-
 		return blob.noun_phrases
 
 	def get_tweet_sentiment(self, tweet):
@@ -47,22 +46,22 @@ class PoliticalClassification(object):
 
 		noun_list = self.get_nouns(blob)
 
-		fake = pd.read_csv("./data/Fake.csv")
-		true = pd.read_csv("./data/True.csv")
+		# fake = pd.read_csv("./data/Fake.csv")
+		# true = pd.read_csv("./data/True.csv")
 
-		fake.shape
-		true.shape
+		# fake.shape
+		# true.shape
 
-		fake['target'] = 'fake'
-		true['target'] = 'true'
+		# fake['target'] = 'fake'
+		# true['target'] = 'true'
 
-		data = pd.concat([fake, true]).reset_index(drop = True)
-		data.shape
-		data = shuffle(data)
-		data = data.reset_index(drop = True)
+		# data = pd.concat([fake, true]).reset_index(drop = True)
+		# data.shape
+		# data = shuffle(data)
+		# data = data.reset_index(drop = True)
 		#data.head()
-		data.drop(["date"], axis=1, inplace=True)
-		print(data.head())
+		# data.drop(["date"], axis=1, inplace=True)
+		# print(data.head())
 
 		ratio = self.classify_tweet(polarity, noun_list)
 
@@ -90,6 +89,6 @@ class PoliticalClassification(object):
 						return tweet_ratio
 				else:
 					return tweet_ratio
-	
+
 #Adapted from Zach Leonardo's senior comp project.
-#Linked here: https://github.com/leonardoz15/Polarized 
+#Linked here: https://github.com/leonardoz15/Polarized

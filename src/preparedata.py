@@ -37,18 +37,18 @@ class PrepareData(object):
 
     def ntlk_process(self, text):
 
-            self.remove_emoji(text)
-            self.remove_html(text)
-            self.remove_URL(text)
+            text = self.remove_emoji(text)
+            text = self.remove_html(text)
+            text = self.remove_URL(text)
             text = text.lower()
-            text = re.sub(r'[!]+', '!', text)
-            text = re.sub(r'[?]+', '?', text)
-            text = re.sub(r'[.]+', '.', text)
+            text = re.sub(r'[:"$%&\*+,-/:;<=>@\\^_`{|}~]+', '', text)
+            text = re.sub(r'&amp;?', r'and', text)  # replace & -> and
             text = re.sub(r"'", "", text)
             text = re.sub(r"'s", "", text)
             text = re.sub('\s+', ' ', text).strip()  # Remove and double spaces
-            text = re.sub(r'&amp;?', r'and', text)  # replace & -> and
-            text = re.sub(r'[:"$%&\*+,-/:;<=>@\\^_`{|}~]+', '', text)
+            text = re.sub(r'[!]+', '!', text)
+            text = re.sub(r'[?]+', '?', text)
+            text = re.sub(r'[.]+', '.', text)
             tokens = []
             for token in text.split():
                     if token not in self.stop_words:

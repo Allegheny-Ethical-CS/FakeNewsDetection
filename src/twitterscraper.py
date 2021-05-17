@@ -29,7 +29,7 @@ class Twitter(object):
         }
         results_df = pd.DataFrame(columns=['index','created_at', 'full_text', 'user_id'])
         for tweet in BlueBird().search(query):
-            
+
             index += 1
             user = BlueBird().get_user_by_id(str(tweet['user_id']))
             res = {"created_at":tweet['created_at'],"full_text":tweet['full_text'],"user_id":user['screen_name']}
@@ -38,7 +38,7 @@ class Twitter(object):
                 results_df.set_index('index')
                 results_df = results_df.drop('index', axis=1)
                 return results_df
-        
+
 
 
     def search_hashtag(self, searching):
@@ -50,7 +50,7 @@ class Twitter(object):
         }
         results_df = pd.DataFrame(columns=['index','created_at', 'full_text', 'user_id'])
         for tweet in BlueBird().search(query):
-            
+
             index += 1
             user = BlueBird().get_user_by_id(str(tweet['user_id']))
             res = {"created_at":tweet['created_at'],"full_text":tweet['full_text'],"user_id":user['screen_name']}
@@ -69,7 +69,7 @@ class Twitter(object):
         }
         results_df = pd.DataFrame(columns=['index','created_at', 'full_text', 'user_id'])
         for tweet in BlueBird().search(query):
-            
+
             index += 1
             user = BlueBird().get_user_by_id(str(tweet['user_id']))
             res = {"created_at":tweet['created_at'],"full_text":tweet['full_text'],"user_id":user['screen_name']}
