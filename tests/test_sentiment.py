@@ -3,11 +3,12 @@ import pytest
 from textblob import TextBlob
 import src.sentiment as sn
 
-# issue: currently isn't working because of lack of file for preparadata to initialize from
 def test_get_nouns():
-    text = """"I am planning to run for President in the 2024 election with Jill Biden as my vice president."""
-    # PoliticalClassification = sn.PoliticalClassification()
+    PoliticalClassification = sn.PoliticalClassification()
+    text = """"The North America relief grant will be passed next week by Joseph Lemmis."""
     blob = TextBlob(text)
-    # nouns = PoliticalClassification.get_nouns(blob)
-    # print(nouns)
-    # assert (len(nouns)) == 6
+    nouns = PoliticalClassification.get_nouns(blob)
+    assert (len(nouns)) > 0
+    assert "relief grant" in nouns
+    assert "america" in nouns
+    assert "joseph lemmis" in nouns
