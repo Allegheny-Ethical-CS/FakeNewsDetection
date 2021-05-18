@@ -1,5 +1,3 @@
-https://github.com/Allegheny-Ethical-CS/FakeNewsDetection/.github/workflows/CI/badge.svg
-
 # Fake News Detection
 
 ## Sample Activity for the AI Course at Allegheny College
