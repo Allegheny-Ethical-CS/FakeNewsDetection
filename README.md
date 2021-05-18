@@ -1,4 +1,7 @@
 ![example workflow](https://github.com/Allegheny-Ethical-CS/FakeNewsDetection/actions/workflows/main.yml/badge.svg)
+![githhub issues](https://img.shields.io/github/issues/Allegheny-Ethical-CS/FakeNewsDetection)
+![github forks](https://img.shields.io/github/forks/Allegheny-Ethical-CS/FakeNewsDetection)
+![twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2FAllegheny-Ethical-CS%2FFakeNewsDetection)
 
 # Fake News Detection
 
