@@ -1,4 +1,4 @@
-https://github.com/Allegheny-Ethical-CS/FakeNewsDetection/.github/workflows/main.yml/badge.svg
+https://github.com/Allegheny-Ethical-CS/FakeNewsDetection/.github/workflows/CI/badge.svg
 
 # Fake News Detection
 
