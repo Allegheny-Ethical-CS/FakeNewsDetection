@@ -1,3 +1,5 @@
+![example workflow](https://github.com/Allegheny-Ethical-CS/FakeNewsDetection/actions/workflows/main.yml/badge.svg)
+
 # Fake News Detection
 
 ## Sample Activity for the AI Course at Allegheny College
