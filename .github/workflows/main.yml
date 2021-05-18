@@ -13,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Set up environment
+        run: |
+          pip install --upgrade pip
+          pip install pipenv
+          pip install coverage            
       - name: Lint with flake8
         run: |
           pipenv run flake8 src
