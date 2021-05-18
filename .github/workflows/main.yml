@@ -1,6 +1,4 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
+name: FakeNewsDetection
 
 on:
   push:
@@ -21,4 +19,3 @@ jobs:
         run: |
           pipenv run pylint src
           pipenv run pylint tests
-
