@@ -41,7 +41,7 @@ class PrepareData(object):
             text = re.sub(r'&amp;?', r'and', text)  # replace & -> and
             text = re.sub(r"'", "", text)
             text = re.sub(r"'s", "", text)
-            text = re.sub('\s+', ' ', text).strip()  # Remove and double spaces
+            text = re.sub(' +', ' ', text).strip()  # Remove and double spaces
             text = re.sub(r'[!]+', '!', text)
             text = re.sub(r'[?]+', '?', text)
             text = re.sub(r'[.]+', '.', text)
