@@ -2,7 +2,6 @@
 
 Welcome to FakeNewsDetection! We would love to see your contributions to the project. Please make sure that you adhere to the following guidleines when making a contribution.
 
-
 * [Code of Conduct](#code-of-conduct)
 * [Using the Issue Tracker](#using-the-issue-tracker)
 * [Pull Requests](#pull-requests)
@@ -11,11 +10,11 @@ Welcome to FakeNewsDetection! We would love to see your contributions to the pro
 
 ## Code of Conduct
 
-Anyone who wishes to contribute to this project must follow the code of conduct.
+Anyone who wishes to contribute to this project must follow the [Code of Conduct](https://github.com/Allegheny-Ethical-CS/FakeNewsDetection/blob/Security-Policy/CodeOfConduct.md).
 
 ## Using the Issue Tracker
 
-If you would like to report an issue or a bug feel free to use the Issue Tracker. The issue will be assessed and addressed as soon as possible. We ask that you please check to make sure the an issue has not already been raised on the problem that you are reporting and that you describe the issue in as much detail as possible.
+If you would like to report an issue or a bug feel free to use the [Issue Tracker](https://github.com/Allegheny-Ethical-CS/FakeNewsDetection/issues). The issue will be assessed and addressed as soon as possible. We ask that you please check to make sure the an issue has not already been raised on the problem that you are reporting and that you describe the issue in as much detail as possible.
 
 ## Pull Requests
 
