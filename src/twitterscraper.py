@@ -1,12 +1,13 @@
+from io import StringIO
 import pandas as pd
 # One of these can be removed?
 # from bluebird import BlueBird
 from bluebird.scraper import BlueBird
-from io import StringIO
 # from twitterUsernameviaUserID import getHandles as gH
 
+# pylint: disable=R0201, R1710
 
-class Twitter(object):
+class Twitter():
 
     def __init__(self):
         self.col_names32 = StringIO("""created_at,id,id_str,full_text,truncated,\
@@ -35,7 +36,9 @@ class Twitter(object):
 
             index += 1
             user = BlueBird().get_user_by_id(str(tweet['user_id']))
-            res = {"created_at": tweet['created_at'], "full_text": tweet['full_text'], "user_id": user['screen_name']}
+            res = {"created_at": tweet['created_at'],
+            "full_text": tweet['full_text'],
+            "user_id": user['screen_name']}
             results_df = results_df.append(res, ignore_index=True)
             if index == 50:
                 results_df.set_index('index')
@@ -54,7 +57,9 @@ class Twitter(object):
 
             index += 1
             user = BlueBird().get_user_by_id(str(tweet['user_id']))
-            res = {"created_at": tweet['created_at'], "full_text": tweet['full_text'], "user_id": user['screen_name']}
+            res = {"created_at": tweet['created_at'],
+            "full_text": tweet['full_text'],
+            "user_id": user['screen_name']}
             results_df = results_df.append(res, ignore_index=True)
             if index == 50:
                 results_df.set_index('index')
@@ -73,7 +78,9 @@ class Twitter(object):
 
             index += 1
             user = BlueBird().get_user_by_id(str(tweet['user_id']))
-            res = {"created_at": tweet['created_at'], "full_text": tweet['full_text'], "user_id": user['screen_name']}
+            res = {"created_at": tweet['created_at'],
+            "full_text": tweet['full_text'],
+            "user_id": user['screen_name']}
             results_df = results_df.append(res, ignore_index=True)
             if index == 50:
                 results_df.set_index('index')
