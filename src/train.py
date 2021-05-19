@@ -1,6 +1,5 @@
 import sklearn
 from sklearn import svm
-from sklearn import metrics
 from sklearn.metrics import classification_report
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
@@ -9,25 +8,19 @@ import preparedata as prep
 
 
 class TrainingML(object):
-    '''
-    Class for handling of both supervised learning models
-    '''
-    def __init__(self):
-        '''
-        Class constructor for initialization
-        '''
+    """Class for handling of both supervised learning models"""
 
-        train_df = pd.read_csv(
-		        "./data/train.csv"
-                )
-        test_df = pd.read_csv(
-		        "./data/test.csv"
-                )
+    def __init__(self):
+        """Class constructor for initialization"""
+
+        train_df = pd.read_csv("./data/train.csv")
+
+        test_df = pd.read_csv("./data/test.csv")
 
         train_df = train_df.drop(['id'], axis=1)
         test_df = test_df.drop(['id'], axis=1)
 
-        label = train_df["label"].values
+        # label = train_df["label"].values
         train_df = train_df.drop(['label'], axis=1)
 
         combined_tweets = pd.concat([train_df, test_df], axis=0)
@@ -38,8 +31,8 @@ class TrainingML(object):
         # import datasets, call training
 
         # Vectorize textual data
-        combined_tweets['author'] = prep.prepare_data(combined_tweets,'author')
-        combined_tweets['title'] = prep.prepare_data(combined_tweets,'title')
+        combined_tweets['author'] = prep.prepare_data(combined_tweets, 'author')
+        combined_tweets['title'] = prep.prepare_data(combined_tweets, 'title')
         combined_tweets['text'] = prep.prepare_data(combined_tweets, 'text')
         self.tfidf = TfidfVectorizer(sublinear_tf=True, min_df=3, norm='l2', encoding='latin-1', ngram_range=(1, 2), stop_words='english')
 
@@ -47,9 +40,8 @@ class TrainingML(object):
         self.clf_SVM = self.trainingSVM(combined_tweets)
 
     def trainingNB(self, data):
-        '''
-        Utility function for training Multinomial NB based on combined dataset
-        '''
+        """Utility function for training Multinomial NB based on combined dataset"""
+
         # Features = tweet
         x = data["tweet"]
         # Target = subject
@@ -60,14 +52,13 @@ class TrainingML(object):
         # Multinomial Naive Bayes
         self.clf = MultinomialNB().fit(X_train_tfidf, y_train)
 
-        #get_classification_report(clf)
+        # get_classification_report(clf)
 
         return self.clf
 
     def trainingSVM(self, data):
-        '''
-        Utility function for training linear SVM based on combined dataset
-        '''
+        """Utility function for training linear SVM based on combined dataset"""
+
         # Features = tweet
         x = data["tweet"]
         # Target = subject
@@ -82,9 +73,8 @@ class TrainingML(object):
         return self.clf
 
     def predict_and_label(self, tweet, option):
-        '''
-        Iteratively predict political subjectivity of each tweet through both models depending on option
-        '''
+        """Iteratively predict political subjectivity of each tweet through both models depending on option"""
+
         # labels tweet as political or not, returns subject for both models
         # tweet returned with label, option 0 = NB, option 1 = SVM
 
@@ -96,17 +86,12 @@ class TrainingML(object):
         return tweet
 
     def get_classification_report_NB(self):
-        '''
-        Utility function for generating a classification report for specified model
-        '''
+        """Utility function for generating a classification report for specified model"""
 
         print(classification_report(self.y_test, self.clf_NB.predict(self.tfidf.transform(self.X_test))))
 
-
     def get_classification_report_SVM(self):
-        '''
-        Utility function for generating a classification report for specified model
-        '''
+        """Utility function for generating a classification report for specified model"""
 
         print(classification_report(self.y_test, self.clf_SVM.predict(self.tfidf.transform(self.X_test))))
 
@@ -120,5 +105,5 @@ class TrainingML(object):
 # accSVM = metrics.accuracy_score(y_test, y_predict2)
 # print("Accuracy NB : ", accNB, "\nAccuracy SVM : ", accSVM)
 
-#Adapted from Zach Leonardo's senior comp project.
-#Linked here: https://github.com/leonardoz15/Polarized 
+# Adapted from Zach Leonardo's senior comp project.
+# Linked here: https://github.com/leonardoz15/Polarized

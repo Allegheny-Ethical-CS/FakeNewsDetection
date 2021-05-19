@@ -4,6 +4,8 @@ import pandas as pd
 from textblob import TextBlob
 
 # pylint: disable=W0311, R0201, R1705
+
+
 class PoliticalClassification():
 	"""Handle sentiment and political classification."""
 
