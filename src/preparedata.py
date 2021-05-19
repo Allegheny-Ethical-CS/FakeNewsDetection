@@ -6,6 +6,7 @@ from nltk.stem import LancasterStemmer, WordNetLemmatizer
 
 # pylint: disable=R0201, C0103
 
+
 class PrepareData():
 
     def __init__(self):
@@ -63,9 +64,10 @@ class PrepareData():
         results_df = dataframe
         results_df = results_df[['created_at', 'user_id', 'full_text']]
         results_df = results_df.rename(columns={
-        'created_at': 'date',
-        'user_id': 'author',
-        'full_text': 'text'})
+            'created_at': 'date',
+            'user_id': 'author',
+            'full_text': 'text'
+        })
         results_df['date'] = pd.to_datetime(results_df['date']).dt.date
         results_df['text'] = self.prepare_data(results_df, 'text')
         results_df['author'] = self.prepare_data(results_df, 'author')

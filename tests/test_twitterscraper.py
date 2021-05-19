@@ -4,6 +4,7 @@ import src.twitterscraper as ts
 
 # pylint: disable=W0702, C0103
 
+
 def test_search_term():
     """Check that search term function returns dataframe of tweets that contain term searched."""
     twitterscraper = ts.Twitter()

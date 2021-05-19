@@ -7,6 +7,7 @@ from bluebird.scraper import BlueBird
 
 # pylint: disable=R0201, R1710
 
+
 class Twitter():
 
     def __init__(self):
@@ -36,9 +37,11 @@ class Twitter():
 
             index += 1
             user = BlueBird().get_user_by_id(str(tweet['user_id']))
-            res = {"created_at": tweet['created_at'],
-            "full_text": tweet['full_text'],
-            "user_id": user['screen_name']}
+            res = {
+                "created_at": tweet['created_at'],
+                "full_text": tweet['full_text'],
+                "user_id": user['screen_name']
+            }
             results_df = results_df.append(res, ignore_index=True)
             if index == 50:
                 results_df.set_index('index')
@@ -57,9 +60,11 @@ class Twitter():
 
             index += 1
             user = BlueBird().get_user_by_id(str(tweet['user_id']))
-            res = {"created_at": tweet['created_at'],
-            "full_text": tweet['full_text'],
-            "user_id": user['screen_name']}
+            res = {
+                "created_at": tweet['created_at'],
+                "full_text": tweet['full_text'],
+                "user_id": user['screen_name']
+            }
             results_df = results_df.append(res, ignore_index=True)
             if index == 50:
                 results_df.set_index('index')
@@ -78,9 +83,11 @@ class Twitter():
 
             index += 1
             user = BlueBird().get_user_by_id(str(tweet['user_id']))
-            res = {"created_at": tweet['created_at'],
-            "full_text": tweet['full_text'],
-            "user_id": user['screen_name']}
+            res = {
+                "created_at": tweet['created_at'],
+                "full_text": tweet['full_text'],
+                "user_id": user['screen_name']
+            }
             results_df = results_df.append(res, ignore_index=True)
             if index == 50:
                 results_df.set_index('index')

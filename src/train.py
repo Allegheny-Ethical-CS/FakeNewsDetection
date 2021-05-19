@@ -8,6 +8,7 @@ from . import preparedata as prep
 
 # pylint: disable=C0103, C0301, E1101
 
+
 class TrainingML():
     """Class for handling of both supervised learning models"""
 

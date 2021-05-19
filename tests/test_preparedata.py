@@ -50,11 +50,11 @@ def test_ntlk_process():
 
     double_punc_list = ["  ", "!!", "??", ".."]
     for element in double_punc_list:
-        assert not element in new_msg
+        assert element not in new_msg
 
     remove_function_list = ["<strong>", "</strong>", "😻", "https://github.com/Allegheny-Ethical-CS/FakeNewsDetection"]
     for element in remove_function_list:
-        assert not element in new_msg
+        assert element not in new_msg
 
 
 def test_ntlk_process_randomized():
@@ -65,7 +65,7 @@ def test_ntlk_process_randomized():
         preparedata = prep.PrepareData()
         processed_str = preparedata.ntlk_process(test_str)
         for element in block_list:
-            assert not element in processed_str
+            assert element not in processed_str
 
 
 def test_prepare_data():
@@ -89,9 +89,9 @@ def test_prepare_data():
 
     for ind in dataframe.index:
         for element in block_list:
-            assert not element in dataframe['Column 1'][ind]
-            assert not element in dataframe['Column 2'][ind]
-            assert not element in dataframe['Column 3'][ind]
+            assert element not in dataframe['Column 1'][ind]
+            assert element not in dataframe['Column 2'][ind]
+            assert element not in dataframe['Column 3'][ind]
 
 
 def test_build_Results():
@@ -111,8 +111,8 @@ def test_build_Results():
 
     for ind in built_df.index:
         for element in block_list:
-            assert not element in built_df["author"][ind]
-            assert not element in built_df["text"][ind]
+            assert element not in built_df["author"][ind]
+            assert element not in built_df["text"][ind]
 
 
 def random_str(number_components = 12):
