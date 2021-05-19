@@ -4,7 +4,7 @@ import pytest
 import string
 import random
 import pandas as pd
-from datetime import datetime
+import time
 
 import src.preparedata as prep
 from src.twitterscraper import Twitter as ts
@@ -20,6 +20,7 @@ def test_remove_URL():
     new_msg = preparedata.remove_URL(msg)
     assert new_msg == msg_url_removed
 
+
 def test_remove_html():
     """Check that remove HTML function finds and removes HTML tags in string."""
     msg = "<strong> This bill will have an important effect on immigration reform </strong>"
@@ -28,6 +29,7 @@ def test_remove_html():
     new_msg = preparedata.remove_html(msg)
     assert new_msg == msg_html_removed
 
+
 def test_remove_emojis():
     """Check that remove emoji function finds and removes emojis in a string."""
     msg = "Ask my cats what they think of this bill😻"
@@ -35,6 +37,7 @@ def test_remove_emojis():
     preparedata = prep.PrepareData()
     new_msg = preparedata.remove_emoji(msg)
     assert new_msg == msg_emoji_removed
+
 
 def test_ntlk_process():
     """Check that ntlk process function finds and removes extraneous information such as html tags, urls, double punctuation, and stop words."""
@@ -67,7 +70,6 @@ def test_ntlk_process_randomized():
 
 def test_prepare_data():
     """Check that prepare data properly processes each string in dataframe."""
-    test_str = ""
     col_1_rows = []
     col_2_rows = []
     col_3_rows = []
@@ -76,7 +78,7 @@ def test_prepare_data():
         col_2_rows.append(random_str())
         col_3_rows.append(random_str())
 
-    random_data = {'Column 1':col_1_rows, 'Column 2':col_2_rows, 'Column 3':col_3_rows}
+    random_data = {'Column 1': col_1_rows, 'Column 2': col_2_rows, 'Column 3': col_3_rows}
     dataframe = pd.DataFrame(random_data)
 
     preparedata = prep.PrepareData()
@@ -94,7 +96,11 @@ def test_prepare_data():
 
 def test_build_Results():
     """Check that build results function returns properly labelled and processed dataframe."""
-    search_term_df = ts().search_term("court")
+    try:
+        search_term_df = ts().search_term("court")
+    except:
+        time.sleep(10)
+        search_term_df = ts().search_term("court")
     assert not(search_term_df.empty)
     preparedata = prep.PrepareData()
     built_df = preparedata.build_Results(search_term_df)
@@ -116,8 +122,8 @@ def random_str(number_components = 12):
     component_id = 0
     component_len = 0
     for i in range(number_components):
-        component_id = random.randint(0,14)
-        component_len = random.randint(0,12)
+        component_id = random.randint(0, 14)
+        component_len = random.randint(0, 12)
         # random string generation credit to https://www.educative.io/edpresso/how-to-generate-a-random-string-in-python
         if(component_id == 0):
             addition = "  "
@@ -126,16 +132,16 @@ def random_str(number_components = 12):
             addition = ''.join(random.choice(letters) for i in range(component_len))
         if(component_id == 2):
             letters = string.ascii_uppercase
-            addition = ( ''.join(random.choice(letters) for i in range(component_len)) )
+            addition = (''.join(random.choice(letters) for i in range(component_len)))
         if(component_id == 3):
             letters = string.ascii_letters
-            addition = ( ''.join(random.choice(letters) for i in range(component_len)) )
+            addition = (''.join(random.choice(letters) for i in range(component_len)))
         if(component_id == 4):
             letters = string.digits
-            addition = ( ''.join(random.choice(letters) for i in range(component_len)) )
+            addition = (''.join(random.choice(letters) for i in range(component_len)))
         if(component_id == 5):
             letters = string.punctuation
-            addition = ( ''.join(random.choice(letters) for i in range(component_len)) )
+            addition = (''.join(random.choice(letters) for i in range(component_len)))
         if(component_id == 6):
             addition = " https://github.com/Allegheny-Ethical-CS "
         if(component_id == 7):

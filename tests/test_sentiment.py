@@ -3,6 +3,8 @@ import pytest
 from textblob import TextBlob
 import src.sentiment as sn
 from src.twitterscraper import Twitter as ts
+import time
+
 
 def test_get_nouns():
     PoliticalClassification = sn.PoliticalClassification()
@@ -14,6 +16,7 @@ def test_get_nouns():
     assert "america" in nouns
     assert "joseph lemmis" in nouns
 
+
 # test driven development of get tweet sentiment
 def test_get_tweet_sentiment():
     PoliticalClassification = sn.PoliticalClassification()
@@ -21,7 +24,11 @@ def test_get_tweet_sentiment():
     tweet_count = 0
     left_leaning = 0
     right_leaning = 0
-    search_term_df = ts().search_term("Facebook")
+    try:
+        search_term_df = ts().search_term("Facebook")
+    except:
+        time.sleep(10)
+        search_term_df = ts().search_term("Facebook")
     for ind in search_term_df.index:
         tweet_count += 1
         ratio = PoliticalClassification.get_tweet_sentiment(search_term_df["full_text"][ind])
