@@ -4,10 +4,11 @@ from sklearn.metrics import classification_report
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 import pandas as pd
-import preparedata as prep
+from . import preparedata as prep
 
+# pylint: disable=C0103, C0301, E1101
 
-class TrainingML(object):
+class TrainingML():
     """Class for handling of both supervised learning models"""
 
     def __init__(self):
