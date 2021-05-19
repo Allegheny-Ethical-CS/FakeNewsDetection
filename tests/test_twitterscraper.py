@@ -1,8 +1,8 @@
-import pytest
 import time
 
 import src.twitterscraper as ts
 
+# pylint: disable=W0702, C0103
 
 def test_search_term():
     """Check that search term function returns dataframe of tweets that contain term searched."""
@@ -28,7 +28,7 @@ def test_search_term():
                     direct_term_present += 1
                 else:
                     no_direct_term_present += 1
-            if(no_direct_term_present == 0):
+            if no_direct_term_present == 0:
                 direct_presense_ratio = 1
             else:
                 direct_presense_ratio = direct_term_present / no_direct_term_present
@@ -62,7 +62,7 @@ def test_search_hastag():
                     direct_term_present += 1
                 else:
                     no_direct_term_present += 1
-            if(no_direct_term_present == 0):
+            if no_direct_term_present == 0:
                 direct_presense_ratio = 1
             else:
                 direct_presense_ratio = direct_term_present / no_direct_term_present
@@ -72,7 +72,8 @@ def test_search_hastag():
 
 
 def test_search_user():
-    """Check that search user properly returns tweets of/about a user when given that user's user ID"""
+    """Check that search user properly returns tweets of/about a user when
+    given that user's user ID"""
     twitterscraper = ts.Twitter()
     search_parameters = ["AOC", "tedcruz", "BernieSanders", "Aly_Raisman"]
 
@@ -97,7 +98,7 @@ def test_search_user():
                     direct_term_present += 1
                 else:
                     no_direct_term_present += 1
-            if(no_direct_term_present == 0):
+            if no_direct_term_present == 0:
                 direct_presense_ratio = 1
             else:
                 direct_presense_ratio = direct_term_present / no_direct_term_present

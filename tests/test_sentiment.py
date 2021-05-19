@@ -1,5 +1,4 @@
 """Test module for sentiment.py"""
-import pytest
 from textblob import TextBlob
 import src.sentiment as sn
 from src.twitterscraper import Twitter as ts
