@@ -1,21 +1,13 @@
-import nltk
+"""Class to handle sentiment and political classification."""
+
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.feature_extraction.text import TfidfTransformer
-from sklearn import feature_extraction, linear_model, model_selection, preprocessing
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
-from sklearn.pipeline import Pipeline
 from textblob import TextBlob
-from operator import itemgetter
-from sklearn.utils import shuffle
+
 
 class PoliticalClassification(object):
-	"""Class to handle sentiment and political classification"""
+
 	def __init__(self):
-		"""Class constructor, initializes dictionary for political classification"""
+		"""Class constructor, initializes dictionary for political classification."""
 
 		rep_tweets = pd.read_csv("./data/ExtractedTweets2.csv", header='infer')
 		rep_tweets.columns = ['Party', 'Handle', 'Tweet']
@@ -30,12 +22,12 @@ class PoliticalClassification(object):
 
 	def get_nouns(self, blob):
 		"""Utility function to classify sentiment of passed tweet
-		using textblob's sentiment method"""
+		using textblob's sentiment method."""
 		return blob.noun_phrases
 
 	def get_tweet_sentiment(self, tweet):
 		"""Utility function to classify sentiment of passed tweet
-		using textblob's sentiment method"""
+		using textblob's sentiment method."""
 
 		# create TextBlob object of passed tweet text
 		blob = TextBlob(tweet)
@@ -68,7 +60,7 @@ class PoliticalClassification(object):
 		return ratio
 
 	def classify_tweet(self, polarity, nouns):
-		"""Classify user based on each tweet ratio -1 to 1"""
+		"""Classify user based on each tweet ratio -1 to 1."""
 		# -1 = left leaning, 0 = neutral/undefined, 1 = right leaning
 		tweet_ratio = 0
 		for noun in nouns:
