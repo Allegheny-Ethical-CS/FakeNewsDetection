@@ -5,6 +5,7 @@ from textblob import TextBlob
 
 
 class PoliticalClassification(object):
+	"""Handle sentiment and political classification."""
 
 	def __init__(self):
 		"""Class constructor, initializes dictionary for political classification."""
@@ -18,7 +19,7 @@ class PoliticalClassification(object):
 		self.politicians = representatives.to_dict('records')
 		for entry in self.politicians:
 			if "SenWarren" in entry['Handle']:
-		 		print(entry['Party'])
+				print(entry['Party'])
 
 	def get_nouns(self, blob):
 		"""Utility function to classify sentiment of passed tweet
@@ -51,7 +52,7 @@ class PoliticalClassification(object):
 		# data.shape
 		# data = shuffle(data)
 		# data = data.reset_index(drop = True)
-		#data.head()
+		# data.head()
 		# data.drop(["date"], axis=1, inplace=True)
 		# print(data.head())
 
@@ -82,5 +83,5 @@ class PoliticalClassification(object):
 				else:
 					return tweet_ratio
 
-#Adapted from Zach Leonardo's senior comp project.
-#Linked here: https://github.com/leonardoz15/Polarized
+# Adapted from Zach Leonardo's senior comp project.
+# Linked here: https://github.com/leonardoz15/Polarized
