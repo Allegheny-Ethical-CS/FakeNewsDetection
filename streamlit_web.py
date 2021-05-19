@@ -7,23 +7,23 @@ from src.preparedata import PrepareData as prep
 import urllib
 
 
-
-#@st.cache
+# @st.cache
 def get_twitter_data():
     AWS_BUCKET_URL = "https://streamlit-demo-data.s3-us-west-2.amazonaws.com"
     df = pd.read_csv(AWS_BUCKET_URL + "/agri.csv.gz")
     return df.set_index("Region")
 
+
 try:
     st.sidebar.title("Welcome to FakeNewsDetection!")
     data_retreive_method = st.sidebar.selectbox(
-            "How would you like to search Twitter?",
-            [
-                "Keyword",
-                "Hashtag",
-                "Username",
-            ],
-        )
+        "How would you like to search Twitter?",
+        [
+            "Keyword",
+            "Hashtag",
+            "Username",
+        ],
+    )
 # Alternative syntax, declare a form and use the returned object
     form = st.form(key='user_search')
     text_input = form.text_input(label='What would you like to search')
