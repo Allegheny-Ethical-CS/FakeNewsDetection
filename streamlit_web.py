@@ -1,11 +1,11 @@
 import urllib
-from numpy.lib.ufunclike import _fix_and_maybe_deprecate_out_named_y
 import streamlit as st
 import pandas as pd
 from src.twitterscraper import Twitter as ts
 from src.preparedata import PrepareData as prep
 
 # pylint: disable=R0201, C0103
+
 
 # @st.cache
 def get_twitter_data():
