@@ -3,8 +3,8 @@
 import pandas as pd
 from textblob import TextBlob
 
-# pylint: disable=W0312
-class PoliticalClassification(object):
+# pylint: disable=W0311, R0201, R1705
+class PoliticalClassification():
 	"""Handle sentiment and political classification."""
 
 	def __init__(self):
@@ -80,8 +80,7 @@ class PoliticalClassification(object):
 					elif polarity < 0 and party == 'Republican':
 						tweet_ratio = -1
 						return tweet_ratio
-				else:
-					return tweet_ratio
+				return tweet_ratio
 
 # Adapted from Zach Leonardo's senior comp project.
 # Linked here: https://github.com/leonardoz15/Polarized
