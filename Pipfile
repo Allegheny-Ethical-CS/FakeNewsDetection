@@ -45,11 +45,9 @@ flake8 = "*"
 bluebird = "==0.0.8a0"
 altair = "*"
 streamlit = "*"
-twitterusernameviauserid = "*"
-pandas-profiling = "*"
-progressbar2 = "*"
-streamlit-pandas-profiling = "*"
-tensorflow = "==2.5.0-rc3"
+pydocstyle = "*"
+pylint = "*"
+
 
 [dev-packages]
 

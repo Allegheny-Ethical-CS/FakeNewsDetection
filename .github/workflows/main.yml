@@ -1,0 +1,29 @@
+name: Fake News Detection
+
+on:
+  push:
+    #branches: [ main ]
+    branches:
+      - main
+#  pull_request:
+#    branches: [ main ]
+#  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up environment
+        run: |
+          pip install --upgrade pip
+          pip install pipenv
+          pip install coverage            
+      - name: Lint with flake8
+        run: |
+          pipenv install --dev
+          pipenv run flake8 src
+          pipenv run flake8 tests
+      - name: Lint with pylint
+        run: |
+          pipenv run pylint src
+          pipenv run pylint tests
