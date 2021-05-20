@@ -20,6 +20,7 @@ jobs:
           pip install coverage            
       - name: Lint with flake8
         run: |
+          pipenv install --dev
           pipenv run flake8 src
           pipenv run flake8 tests
       - name: Lint with pylint
