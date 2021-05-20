@@ -1,7 +1,8 @@
-import pytest
 import time
 
 import src.twitterscraper as ts
+
+# pylint: disable=W0702, C0103
 
 
 def test_search_term():
@@ -24,17 +25,18 @@ def test_search_term():
                 for element in tweet_components:
                     if term.lower() in element.lower():
                         hasTerm = True
-                if hasTerm == True:
+                if hasTerm is True:
                     direct_term_present += 1
                 else:
                     no_direct_term_present += 1
-            if(no_direct_term_present == 0):
+            if no_direct_term_present == 0:
                 direct_presense_ratio = 1
             else:
-                direct_presense_ratio = direct_term_present/no_direct_term_present
+                direct_presense_ratio = direct_term_present / no_direct_term_present
             assert direct_presense_ratio > 0.9
         except:
             time.sleep(10)
+
 
 def test_search_hastag():
     """Check that search term function returns dataframe of tweets containing hashtag with term"""
@@ -57,20 +59,22 @@ def test_search_hastag():
                 for element in tweet_components:
                     if target_term.lower() in element.lower():
                         hasTerm = True
-                if hasTerm == True:
+                if hasTerm is True:
                     direct_term_present += 1
                 else:
                     no_direct_term_present += 1
-            if(no_direct_term_present == 0):
+            if no_direct_term_present == 0:
                 direct_presense_ratio = 1
             else:
-                direct_presense_ratio = direct_term_present/no_direct_term_present
+                direct_presense_ratio = direct_term_present / no_direct_term_present
             assert direct_presense_ratio > 0.9
         except:
             time.sleep(10)
 
+
 def test_search_user():
-    """Check that search user properly returns tweets of/about a user when given that user's user ID"""
+    """Check that search user properly returns tweets of/about a user when
+    given that user's user ID"""
     twitterscraper = ts.Twitter()
     search_parameters = ["AOC", "tedcruz", "BernieSanders", "Aly_Raisman"]
 
@@ -91,14 +95,14 @@ def test_search_user():
                 for element in tweet_components:
                     if term.lower() in element.lower():
                         hasTerm = True
-                if hasTerm == True:
+                if hasTerm is True:
                     direct_term_present += 1
                 else:
                     no_direct_term_present += 1
-            if(no_direct_term_present == 0):
+            if no_direct_term_present == 0:
                 direct_presense_ratio = 1
             else:
-                direct_presense_ratio = direct_term_present/no_direct_term_present
+                direct_presense_ratio = direct_term_present / no_direct_term_present
             assert direct_presense_ratio > 0.9
         except:
             time.sleep(10)
