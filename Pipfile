@@ -43,11 +43,11 @@ sklearn = "*"
 pytest-cov = "*"
 flake8 = "*"
 bluebird = "==0.0.8a0"
-twitterusernameviauserid = "*"
 altair = "*"
 streamlit = "*"
 pydocstyle = "*"
 pylint = "*"
+
 
 [dev-packages]
 

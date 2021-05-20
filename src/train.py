@@ -6,6 +6,7 @@ from sklearn.naive_bayes import MultinomialNB
 import pandas as pd
 from . import preparedata as prep
 
+
 # pylint: disable=C0103, C0301, E1101
 
 
