@@ -1,3 +1,5 @@
+"""Class to return tweets of given parameters from twitter in dataframe."""
+
 from io import StringIO
 import pandas as pd
 from bluebird import BlueBird
@@ -72,7 +74,7 @@ class Twitter():
 
     def search_user(self, searching):
         """Utility function to return given number of tweets with given username as creator or tagged.""""
-        
+
         progressbar = st.progress(0)
         index = 0
         query = {
