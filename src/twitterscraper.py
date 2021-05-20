@@ -46,7 +46,8 @@ class Twitter():
 
 
     def search_hashtag(self, searching):
-        """Utility function to return given number of tweets with given hashtag."""
+        """Utility function to return given number of tweets with given
+        hashtag."""
 
         progressbar = st.progress(0)
         index = 0
@@ -74,7 +75,8 @@ class Twitter():
                 progressbar.progress(index/self.max)
 
     def search_user(self, searching):
-        """Utility function to return given number of tweets with given username as creator or tagged.""""
+        """Utility function to return given number of tweets with given
+        username as creator or tagged."""
 
         progressbar = st.progress(0)
         index = 0
