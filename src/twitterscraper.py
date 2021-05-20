@@ -8,6 +8,7 @@ import streamlit as st
 
 
 class Twitter():
+    """Return tweets of given parameters from twitter in dataframe."""
 
     def __init__(self):
         self.bird = BlueBird()
