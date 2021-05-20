@@ -1,4 +1,5 @@
-"""Class to train machine learning model to return classification report based on subjectivity using user-specified model."""
+"""Class to train machine learning model to return classification report based
+on subjectivity using user-specified model."""
 
 import sklearn
 from sklearn import svm
