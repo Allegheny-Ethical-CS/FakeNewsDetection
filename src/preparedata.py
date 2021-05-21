@@ -1,3 +1,7 @@
+"""Class to return dataframe of tweets with unwanted words/characters removed
+given dataframe of original tweets."""
+
+
 import re
 import nltk
 import pandas as pd
@@ -8,22 +12,31 @@ from nltk.stem import LancasterStemmer, WordNetLemmatizer
 
 
 class PrepareData():
+    """Return dataframe of tweets with unwanted words/characters removed given
+    dataframe of original tweets."""
 
     def __init__(self):
+        """Class constructor, initializes normalization objects."""
+
         nltk.download('stopwords')
         self.stemmer = LancasterStemmer()
         self.stop_words = stopwords.words('english')
         self.lemmatizer = WordNetLemmatizer()
 
     def remove_URL(self, text):
+        """Return given string with any URLs removed."""
+
         url = re.compile(r'https?://\S+|www\.\S+')
         return url.sub(r'', text)
 
     def remove_html(self, text):
+        """Return given string with any html tags removed."""
         html = re.compile(r'<.*?>')
         return html.sub(r'', text)
 
     def remove_emoji(self, text):
+        """Return given string with any unicode emojis removed."""
+
         emoji_pattern = re.compile("["u"\U0001F600-\U0001F64F"  # emoticons
                                    u"\U0001F300-\U0001F5FF"  # symbols
                                    u"\U0001F680-\U0001F6FF"  # map/transport
@@ -34,6 +47,7 @@ class PrepareData():
         return emoji_pattern.sub(r'', text)
 
     def ntlk_process(self, text):
+        """Normalize given string."""
 
         text = self.remove_emoji(text)
         text = self.remove_html(text)
@@ -54,6 +68,8 @@ class PrepareData():
         return " ".join(tokens)
 
     def prepare_data(self, dataframe, column_name):
+        """Normalize each string in a given dataframe column."""
+
         print("Preparing Data")
         dataframe[column_name] = dataframe[column_name].apply(
             lambda x: self.ntlk_process(str(x)))
@@ -61,6 +77,8 @@ class PrepareData():
         return dataframe[column_name]
 
     def build_Training_Results(self, dataframe):
+        """Restructure dataframe for comprehension by classification model."""
+
         training_df = pd.DataFrame(columns=["id", "title", "author", "text"])
         training_df['id'] = dataframe['index']
         training_df['title'] = ''
@@ -80,6 +98,8 @@ class PrepareData():
         return training_df
 
     def build_Results(self, dataframe):
+        """Restructure returned dataframe to most user-friendly way."""
+
         results_df = dataframe
         results_df.set_index('index')
         results_df = results_df.drop('index', axis=1)

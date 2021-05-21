@@ -1,3 +1,6 @@
+"""Class to train machine learning model to return classification report based
+on subjectivity using user-specified model."""
+
 import sklearn
 from sklearn import svm
 from sklearn.metrics import classification_report
