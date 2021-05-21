@@ -90,8 +90,8 @@ class PrepareData():
             'full_text': 'text'
         })
         results_df['date'] = pd.to_datetime(results_df['date']).dt.date
-        # results_df['text'] = self.prepare_data(results_df, 'text')
-        # results_df['author'] = self.prepare_data(results_df, 'author')
+        results_df['text'] = self.prepare_data(results_df, 'text')
+        results_df['author'] = self.prepare_data(results_df, 'author')
 
         print("Built Dataframe")
         return results_df
