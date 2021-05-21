@@ -3,7 +3,6 @@
 from io import StringIO
 import pandas as pd
 from bluebird import BlueBird
-from io import StringIO
 import streamlit as st
 
 
@@ -39,11 +38,10 @@ class Twitter():
             }
 
             results_df = results_df.append(res, ignore_index=True)
-            if index ==self.max:
+            if index == self.max:
                 return results_df
             else:
-                progressbar.progress(index/self.max)
-
+                progressbar.progress(index / self.max)
 
     def search_hashtag(self, searching):
         """Utility function to return given number of tweets with given
@@ -69,10 +67,10 @@ class Twitter():
             }
 
             results_df = results_df.append(res, ignore_index=True)
-            if index ==self.max:
+            if index == self.max:
                 return results_df
             else:
-                progressbar.progress(index/self.max)
+                progressbar.progress(index / self.max)
 
     def search_user(self, searching):
         """Utility function to return given number of tweets with given
@@ -95,7 +93,7 @@ class Twitter():
                    "full_text": tweet['full_text'], "user_id": user['screen_name']}
             results_df = results_df.append(res, ignore_index=True)
             print("Found tweet", index, "out of 50")
-            if index ==self.max:
+            if index == self.max:
                 return results_df
             else:
-                progressbar.progress(index/self.max)
+                progressbar.progress(index / self.max)
