@@ -69,7 +69,7 @@ class MachineBuilder(object):
             review = review.lower()
             review = review.split()
             review = [ps.stem(
-                word)for word in review word not in stopwords.words('english')]
+                word)for word in review if word not in stopwords.words('english')]
             review = ' '.join(review)
             corpus.append(review)
             self.progress_bar.progress(i / len(msg))
