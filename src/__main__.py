@@ -9,9 +9,9 @@ from sentiment import PoliticalClassification
 from train import TrainingML
 
 col_names32 = "created_at,id,id_str,full_text,truncated,display_text_range,entities,source,in_reply_to_status_id,in_reply_to_status_id_str,in_reply_to_user_id,in_reply_to_user_id_str,in_reply_to_screen_name,user_id,user_id_str,geo,coordinates,place,contributors,is_quote_status,retweet_count,favorite_count,conversation_id,conversation_id_str,favorited,retweeted,possibly_sensitive,possibly_sensitive_editable,lang,supplemental_language,,self_thread"
-#api = TwitterClient()
-#trained_model = TrainingML()
-#sentiment = PoliticalClassification()
+# api = TwitterClient()
+# trained_model = TrainingML()
+# sentiment = PoliticalClassification()
 
 user_results = "../data/results.csv"
 
@@ -27,8 +27,8 @@ def search_term():
     }
     for tweet in BlueBird().search(query):
         index += 1
-        with open('../data/temp.json', 'w') as l:
-            json.dump(tweet, l)
+        with open('../data/temp.json', 'w') as temp:
+            json.dump(tweet, temp)
         df = pd.read_json('../data/temp.json', lines=True)
         with open(user_results, 'a') as f:
             df.to_csv(f, header=None, index=False)
@@ -54,8 +54,8 @@ def search_hashtag():
     }
     for tweet in BlueBird().search(query):
         index += 1
-        with open('data/temp.json', 'w') as l:
-            json.dump(tweet, l)
+        with open('data/temp.json', 'w') as temp:
+            json.dump(tweet, temp)
         df = pd.read_json('data/temp.json', lines=True)
         with open(user_results, 'a') as f:
             df.to_csv(f, header=None, index=False)
@@ -81,8 +81,8 @@ def search_user():
     }
     for tweet in BlueBird().search(query):
         index += 1
-        with open('data/temp.json', 'w') as l:
-            json.dump(tweet, l)
+        with open('data/temp.json', 'w') as temp:
+            json.dump(tweet, temp)
         df = pd.read_json('data/temp.json', lines=True)
         with open(user_results, 'a') as f:
             df.to_csv(f, header=None, index=False)
