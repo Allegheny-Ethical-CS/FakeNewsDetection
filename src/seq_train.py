@@ -68,7 +68,7 @@ class MachineBuilder(object):
             review = review.lower()
             review = review.split()
             review = [ps.stem(
-                word)for word in review if not word in stopwords.words('english')]
+                word)for word in review if word not in stopwords.words('english')]
             review = ' '.join(review)
             corpus.append(review)
             self.progress_bar.progress(i/len(msg))
@@ -77,7 +77,7 @@ class MachineBuilder(object):
             review = review.lower()
             review = review.split()
             review = [ps.stem(
-                word)for word in review if not word in stopwords.words('english')]
+                word)for word in review if word not in stopwords.words('english')]
             review = ' '.join(review)
             corpus_test.append(review)
             self.progress_bar.progress(i/len(msg_test))
@@ -108,10 +108,10 @@ class MachineBuilder(object):
         y_final = np.array(y)
         X_final.shape, y_final.shape
         # Create a callback that saves the model's weights
-        early_callback = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', 
+        early_callback = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy',
                                                         mode='auto',
                                                         patience=2,
-                                                        baseline=None, 
+                                                        baseline=None,
                                                         restore_best_weights=True
                                                         )
         cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=self.checkpoint_path,
@@ -161,7 +161,7 @@ class MachineBuilder(object):
             review = review.lower()
             review = review.split()
             review = [ps.stem(
-                word)for word in review if not word in stopwords.words('english')]
+                word)for word in review if word not in stopwords.words('english')]
             review = ' '.join(review)
             corpus_test.append(review)
             self.progress_bar.progress(i/len(tweets_test))
