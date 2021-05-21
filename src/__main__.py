@@ -1,3 +1,5 @@
+"""Class to handle iterating through tweets in real time."""
+
 import json
 import os
 
@@ -17,6 +19,8 @@ user_results = "../data/results.csv"
 
 
 def search_term():
+    """Using a user-specified keyword to find related tweets."""
+
     index = 0
     searching = input("Enter a term to search. \n")
 
@@ -44,6 +48,8 @@ def search_term():
 
 
 def search_hashtag():
+    """"Using a user-specified hashtag to find related tweets."""
+
     index = 0
     searching = input("Enter a hashtag to search. \n")
 
@@ -71,6 +77,8 @@ def search_hashtag():
 
 
 def search_user():
+    """Using a user-specified username to find related tweets."""
+
     index = 0
     searching = input("Enter a user to search. \n")
 
@@ -98,6 +106,8 @@ def search_user():
 
 
 def main():
+    """Main method to give selection options."""
+
     try:
         os.remove('../results.csv')
         os.remove('../temp.csv')
