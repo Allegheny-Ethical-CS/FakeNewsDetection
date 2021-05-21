@@ -23,7 +23,3 @@ jobs:
           pipenv install --dev
           pipenv run flake8 src
           pipenv run flake8 tests
-      - name: Lint with pylint
-        run: |
-          pipenv run pylint src
-          pipenv run pylint tests
