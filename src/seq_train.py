@@ -21,6 +21,7 @@ from tensorflow.python.keras.backend import print_tensor
 import progressbar
 import streamlit as st
 
+
 class MachineBuilder(object):
 
     def __init__(self):
@@ -71,7 +72,7 @@ class MachineBuilder(object):
                 word)for word in review if not word in stopwords.words('english')]
             review = ' '.join(review)
             corpus.append(review)
-            self.progress_bar.progress(i/len(msg))
+            self.progress_bar.progress(i / len(msg))
         for i in progressbar.progressbar(range(0, len(msg_test))):
             review = re.sub('[^a-zA-Z]', ' ', msg_test['total'][i])
             review = review.lower()
@@ -80,9 +81,10 @@ class MachineBuilder(object):
                 word)for word in review if not word in stopwords.words('english')]
             review = ' '.join(review)
             corpus_test.append(review)
-            self.progress_bar.progress(i/len(msg_test))
+            self.progress_bar.progress(i / len(msg_test))
         one_rep = [one_hot(words, self.voc_size) for words in corpus]
-        one_rep_test = [one_hot(words, self.voc_size) for words in corpus_test]
+        # Said it was never used
+        # one_rep_test = [one_hot(words, self.voc_size) for words in corpus_test]
         embedded_docs = pad_sequences(
             one_rep, padding='pre', maxlen=self.sent_length)
         return embedded_docs
@@ -108,15 +110,16 @@ class MachineBuilder(object):
         y_final = np.array(y)
         X_final.shape, y_final.shape
         # Create a callback that saves the model's weights
-        early_callback = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', 
-                                                        mode='auto',
-                                                        patience=2,
-                                                        baseline=None, 
-                                                        restore_best_weights=True
-                                                        )
-        cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=self.checkpoint_path,
-                                                         save_weights_only=True,
-                                                         verbose=1,)
+        early_callback = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy',
+                                                          mode='auto',
+                                                          patience=2,
+                                                          baseline=None,
+                                                          restore_best_weights=True
+                                                          )
+        # Said it was never used
+        # cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=self.checkpoint_path,
+        #                                                 save_weights_only=True,
+        #                                                 verbose=1,)
         model.fit(X_final, y_final, epochs=30, batch_size=128,
                   validation_data=(X_final, y_final), callbacks=[early_callback])
         loss, acc = model.evaluate(X_final, y_final, verbose=2)
@@ -129,7 +132,7 @@ class MachineBuilder(object):
         with st.spinner("Searching for Model"):
             print("Trying to Find Saved Model Pt.1")
             model = self.build_model()
-            if os.path.exists(self.checkpoint_path+".index"):
+            if os.path.exists(self.checkpoint_path + ".index"):
                 print("Found!\nLoading Model")
                 model.load_weights(self.checkpoint_path)
 
@@ -164,7 +167,7 @@ class MachineBuilder(object):
                 word)for word in review if not word in stopwords.words('english')]
             review = ' '.join(review)
             corpus_test.append(review)
-            self.progress_bar.progress(i/len(tweets_test))
+            self.progress_bar.progress(i / len(tweets_test))
         one_rep_test = [one_hot(words, self.voc_size) for words in corpus_test]
         embedded_docs_tweets_test = pad_sequences(
             one_rep_test, padding='pre', maxlen=self.sent_length)
@@ -178,7 +181,7 @@ class MachineBuilder(object):
         predictions['text'] = tweets_test['text']
         predictions['label'] = y_pred
         predictions['label'] = predictions['label'].astype(int)
-        predictions["label"] = ['Unreliable' if x==1 else 'Reliable' if x==0 else 'broken' for x in predictions['label']]
+        predictions["label"] = ['Unreliable' if x == 1 else 'Reliable' if x == 0 else 'broken' for x in predictions['label']]
         return predictions
 
     def display_valid(self, results_df):

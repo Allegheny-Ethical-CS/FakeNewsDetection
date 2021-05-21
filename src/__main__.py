@@ -4,7 +4,8 @@ import json
 import os
 
 import pandas as pd
-from bluebird import BlueBird
+# Said this was unused.
+# from bluebird import BlueBird
 from bluebird.scraper import BlueBird
 
 from sentiment import PoliticalClassification
