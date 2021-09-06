@@ -6,8 +6,8 @@ from textblob import TextBlob
 # pylint: disable=W0311, R0201, R1705
 
 
-class PoliticalClassification():
-	"""Handle sentiment and political classification."""
+class SentimentAnalysiss():
+	"""Handle sentiment analysis of whole tweets."""
 
 	def __init__(self):
 		"""Class constructor, initializes dictionary for political classification."""
@@ -40,23 +40,6 @@ class PoliticalClassification():
 		polarity = blob.polarity
 
 		noun_list = self.get_nouns(blob)
-
-		# fake = pd.read_csv("./data/Fake.csv")
-		# true = pd.read_csv("./data/True.csv")
-
-		# fake.shape
-		# true.shape
-
-		# fake['target'] = 'fake'
-		# true['target'] = 'true'
-
-		# data = pd.concat([fake, true]).reset_index(drop = True)
-		# data.shape
-		# data = shuffle(data)
-		# data = data.reset_index(drop = True)
-		# data.head()
-		# data.drop(["date"], axis=1, inplace=True)
-		# print(data.head())
 
 		ratio = self.classify_tweet(polarity, noun_list)
 

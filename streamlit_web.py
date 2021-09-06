@@ -1,4 +1,5 @@
 
+import sys
 import os
 import pickle
 from nltk.util import pr
@@ -24,7 +25,8 @@ def get_twitter_data():
 
 
 try:
-    st.sidebar.title("Welcome to FakeNewsDetection!")
+    st.sidebar.title("Welcome to FakeNewsDetection")
+    st.sidebar.write("FakeNewsDetection will allow you to search through live Tweets from Twitter via keyword, username, or hashtag. The BOT will then perform sentiment, validity, and politial analysis on the Tweets!")
     data_retreive_method = st.sidebar.selectbox(
         "How would you like to search Twitter?",
         [
@@ -37,7 +39,7 @@ try:
     form = st.form(key='user_search')
     text_input = form.text_input(label='What would you like to search')
     submit_button = form.form_submit_button(label='Submit')
-    
+
 # st.form_submit_button returns True upon form submit
     if submit_button:
         if data_retreive_method == 'Keyword':
@@ -50,7 +52,7 @@ try:
                     training_df = prep().build_Training_Results(results_df)
                     results_df = prep().build_Results(results_df)
                 st.success("Formatted")
-                st.write(results_df)
+                st.table(results_df)
         if data_retreive_method == 'Hashtag':
             with st.empty():
                 with st.spinner("Collecting tweets"):
@@ -61,7 +63,7 @@ try:
                     training_df = prep().build_Training_Results(results_df)
                     results_df = prep().build_Results(results_df)
                 st.success("Formatted")
-                st.write(results_df)
+                st.table(results_df)
         if data_retreive_method == 'Username':
             with st.empty():
                 with st.spinner("Collecting tweets"):
@@ -72,40 +74,16 @@ try:
                     training_df = prep().build_Training_Results(results_df)
                     results_df = prep().build_Results(results_df)
                 st.success("Formatted")
-                st.write(results_df)
+                st.table(results_df)
         print("Entering Machine Learning")
         mach = ms()
         results = mach.display_valid(training_df)
         st.empty()
-        st.write(results)
+        st.table(results)
         design_report = ProfileReport(results)
         design_report.to_file(output_file='report.html')
         webbrowser.open_new_tab(url="report.html")
-    # df = get_twitter_data()
-    # countries = st.multiselect(
-    #     "Choose countries", list(df.index), ["China", "United States of America"]
-    # )
-    # if not countries:
-    #     st.error("Please select at least one country.")
-    # else:
-    #     data = df.loc[countries]
-    #     data /= 1000000.0
-    #     st.write("### Gross Agricultural Production ($B)", data.sort_index())
 
-    #     data = data.T.reset_index()
-    #     data = pd.melt(data, id_vars=["index"]).rename(
-    #         columns={"index": "year", "value": "Gross Agricultural Product ($B)"}
-    #     )
-    #     chart = (
-    #         alt.Chart(data)
-    #         .mark_area(opacity=0.3)
-    #         .encode(
-    #             x="year:T",
-    #             y=alt.Y("Gross Agricultural Product ($B):Q", stack=None),
-    #             color="Region:N",
-    #         )
-    #     )
-    #     st.altair_chart(chart, use_container_width=True)
 except urllib.error.URLError as e:
     st.error(
         """
