@@ -71,6 +71,11 @@ and then,
 python3 -m textblob.download_corpora
 ```
 
+and then,
+```shell
+pip install -U pandas-profiling
+```
+
 and then, 
 ```shell
 pipenv install --dev
